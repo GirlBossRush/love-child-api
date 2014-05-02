@@ -1,10 +1,23 @@
-polymer-element name="x-story" on-click="{{changeBg}}" attributes="_title author created_at"
+polymer-element name="x-story" on-click="{{changeBg}}" attributes="_title author created_at description"
   template
-    header.details
-      .title "{{_title}}"
-      .author "{{author}}"
-      .created-at "{{created_at}}"
+    header.headline
 
-    content
+
+      .title
+        | {{_title}}
+
+      .description
+        | {{description}}
+
+      .author
+        | {{author}}
+
+      .created-at
+        | {{created_at}}
+
+      hr.section-seperator
+
+    article.body
+      content
     footer.summary
 

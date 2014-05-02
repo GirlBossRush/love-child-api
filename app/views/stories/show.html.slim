@@ -1,5 +1,7 @@
 p#notice = notice
 
+x-story _title=@story.title author="John Smith" created_at=@story.created_at description=@story.description
+  = @story.body
 
 = link_to 'Edit', edit_story_path(@story)
 '|
