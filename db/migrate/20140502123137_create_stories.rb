@@ -3,7 +3,7 @@ class CreateStories < ActiveRecord::Migration
     create_table :stories do |t|
       t.string :title
       t.string :description
-      t.string :body
+      t.text :body
 
       t.timestamps
     end
