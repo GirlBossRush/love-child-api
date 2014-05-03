@@ -1,0 +1,22 @@
+polymer-element name="story-list" attributes="stories"
+  template
+    polymer-ajax url="/stories.json" auto=true handleAs="json" on-polymer-response="{{populate}}"
+
+    table.stories
+      thead
+        th.id
+        th.description
+        th.created-at
+        th.delete-story
+
+      tbody
+        template repeat="{{story in stories}}"
+          tr
+            td.id
+              | {{story.id}}
+            td.description
+              | {{story.description}}
+            td.created-at
+              time#created-at datetime="{{story.created_at_formatted}}" title="{{story.created_at_formatted}}"
+                | {{story.created_at_humanized}}
+            td.delete-story on-click="deleteStory" delete

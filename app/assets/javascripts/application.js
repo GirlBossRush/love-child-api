@@ -1,4 +1,7 @@
-// require turbolinks
+//require turbolinks
 //= require platform/platform
 //= require polymer/polymer
+//= require moment/moment
+//= require underscore/underscore
+//= require components/story-list
 //= require components/story

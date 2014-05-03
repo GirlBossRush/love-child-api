@@ -1,7 +1,7 @@
 p#notice = notice
+/ time-ago.created-at timestamp=@story.created_at.iso8601
 
-x-story _title=@story.title author="John Smith" created_at=@story.created_at description=@story.description
-  = @story.body
+x-story _id=@story.id author="John Smith"
 
 = link_to 'Edit', edit_story_path(@story)
 '|
