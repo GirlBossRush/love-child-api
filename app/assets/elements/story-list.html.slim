@@ -5,6 +5,7 @@ polymer-element name="story-list" attributes="stories"
     table.stories
       thead
         th.id
+        th.title
         th.description
         th.created-at
         th.delete-story
@@ -13,9 +14,11 @@ polymer-element name="story-list" attributes="stories"
         template repeat="{{story in stories}}"
           tr
             td.id
-              | {{story.id}}
+              | {{story._id}}
+            td.title
+              a href="{{story.url}}" {{story.title}}
             td.description
               | {{story.description}}
             td.created-at
-              human-time datetime="{{story.created_at_formatted}}"
+              human-time datetime="{{story.created_at}}"
             td.delete-story on-click="deleteStory" delete
