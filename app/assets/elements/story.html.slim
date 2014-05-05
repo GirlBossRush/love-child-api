@@ -1,4 +1,4 @@
-polymer-element name="x-story" attributes="_id _title author createdat description"
+polymer-element name="x-story" on-click="clicked" attributes="_id _title author createdat description"
   template
     polymer-ajax url="/stories/{{_id}}.json" auto=true handleAs="json" on-polymer-response="{{populate}}"
 
@@ -12,8 +12,7 @@ polymer-element name="x-story" attributes="_id _title author createdat descripti
       .author
         | {{story.author}}
 
-      time#created-at datetime="{{story.created_at_formatted}}" title="{{story.created_at_formatted}}"
-        | {{story.created_at_humanized}}
+      human-time datetime="{{story.created_at_formatted}}"
       hr.section-seperator
 
     article.body
