@@ -17,6 +17,5 @@ polymer-element name="story-list" attributes="stories"
             td.description
               | {{story.description}}
             td.created-at
-              time#created-at datetime="{{story.created_at_formatted}}" title="{{story.created_at_formatted}}"
-                | {{story.created_at_humanized}}
+              human-time datetime="{{story.created_at_formatted}}"
             td.delete-story on-click="deleteStory" delete

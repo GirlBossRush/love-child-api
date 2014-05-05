@@ -1,38 +1,33 @@
-Timeago =
-  getTimeAgoText: (datetime) ->
-    console.log datetime
+humanize =
+  convert: (datetime) ->
     moment(datetime).fromNow()
 
-  refresh: (element, datetime) ->
-    element.innerHTML = this.getTimeAgoText(datetime)
+  set: (element, datetime) ->
+    element.innerHTML = @convert(datetime)
 
 interval = undefined
 
 Polymer "human-time",
+  refresh: true
+  delay: 600
+
   setup: ->
-    datetime = this.datetime
-    element = this.$.timeago
+    @datetime
+    element  = @shadowRoot.querySelector "time"
 
-    element.innerHTML = Timeago.getTimeAgoText(@datetime)
+    humanize.set(element, @datetime)
 
-    if @refresh == true
-      if typeof interval != "undefined"
+    if @refresh
+      if interval?
         clearInterval interval
 
-      interval = setInterval ->
-        Timeago.refresh(element, datetime)
-      , this.delay
+      interval = setInterval =>
+        humanize.set(element, @datetime)
+      , @delay
 
-  datetimeChanged: (oldval, newval) ->
-    @datetime = newval
+  datetimeChanged: (oldVal, newVal) ->
+    @datetime = newVal
     @setup()
 
   ready: ->
     @setup()
-
-  attributeChanged: ->
-    @setup()
-
-  # datetime: "2012-05-05T17:06:14+09:00"
-  refresh: false
-  delay: 600
