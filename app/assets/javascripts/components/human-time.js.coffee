@@ -9,7 +9,7 @@ interval = undefined
 
 Polymer "human-time",
   refresh: true
-  delay: 600
+  delay: 6000
 
   setup: ->
     @datetime
