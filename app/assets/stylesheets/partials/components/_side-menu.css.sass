@@ -1,0 +1,42 @@
+$side-menu-width: 280px
+
+side-menu
+  display: block
+
+  position: fixed
+  top: 0
+  left: 0
+  z-index: $priority-high
+
+  width: $side-menu-width
+  height: 100%
+
+  background: $black
+
+  color: $white
+  +transform(translate3d(-$side-menu-width, 0, 0))
+
+  transition: all $speed-medium ease-out
+
+  &[expanded]
+    +transform(none)
+
+  &[expanded] + main
+    +transform(translate3d($side-menu-width, 0, 0))
+
+  #expander
+    position: absolute
+    top: 0
+    left: 100%
+
+    color: $black
+
+    margin-top: 10px
+    margin-left: 10px
+
+    &:hover
+      cursor: pointer
+      color: red
+
+  &[expanded] #expander
+    display: none

@@ -1,4 +1,4 @@
-polymer-element name="x-story" on-click="clicked" attributes="_id _title author createdat description"
+polymer-element name="x-story" attributes="_id _title author createdat description"
   template
     polymer-ajax url="/stories/{{_id}}.json" auto=true handleAs="json" on-polymer-response="{{populate}}"
 

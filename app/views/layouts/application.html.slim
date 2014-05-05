@@ -3,6 +3,9 @@ doctype html
 html
   head
     title Love Child
+
+    link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"
+
     = stylesheet_link_tag :application, media: :all, "data-turbolinks-track" => true
     = csrf_meta_tags
 
@@ -12,9 +15,14 @@ html
     meta name="description" content=""
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag :application, 'data-turbolinks-track' => true
+
     = html_import_tag :application
 
   body[unresolved]
-    = yield
+    .mask
+    = render "shared/global_navigation"
+
+    main
+      = yield
 
