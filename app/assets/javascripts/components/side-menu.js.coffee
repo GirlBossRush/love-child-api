@@ -15,5 +15,5 @@ Polymer "side-menu",
       @removeAttribute("expanded")
     else
       body.classList.add("disabled")
-      @setAttribute("expanded", "expanded")
+      @setAttribute("expanded", "")
 
