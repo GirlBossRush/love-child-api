@@ -1,5 +1,6 @@
 //require turbolinks
 //= require platform/platform
+//= require initialize
 //= require polymer/polymer
 //= require moment/moment
 //= require underscore/underscore
