@@ -15,12 +15,12 @@ Polymer "story-list",
   deleteStory: (e, d, el) ->
     id = el.parentElement.dataset.id
 
-    request = document.createElement "polymer-ajax"
+    request = document.createElement "core-ajax"
 
     _.extend request, LC.AJAX.DELETE,
       url: @resource.story(id)
 
-    .addEventListener "polymer-response", =>
+    .addEventListener "core-response", =>
       @removeRow(id)
 
     request.go()
