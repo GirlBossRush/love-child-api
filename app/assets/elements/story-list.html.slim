@@ -1,6 +1,6 @@
 polymer-element name="story-list" attributes="stories"
   template
-    polymer-ajax url="{{resource.stories}}" auto=true handleAs="json" on-polymer-response="{{populate}}"
+    core-ajax url="{{resource.stories}}" auto=true handleAs="json" on-core-response="{{populate}}"
 
     table.stories
       thead

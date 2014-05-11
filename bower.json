@@ -18,8 +18,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#~0.2.3",
     "normalize.css": "~3.0.1",
-    "polymer-elements": "~0.2.3",
     "moment": "~2.6.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "core-elements": "Polymer/core-elements#~0.2.3"
   }
 }

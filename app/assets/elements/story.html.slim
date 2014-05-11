@@ -1,6 +1,6 @@
 polymer-element name="x-story" attributes="_id _title author createdat description"
   template
-    polymer-ajax url="/stories/{{_id}}.json" auto=true handleAs="json" on-polymer-response="{{populate}}"
+    core-ajax url="/stories/{{_id}}.json" auto=true handleAs="json" on-core-response="{{populate}}"
 
     header.headline
       .title
