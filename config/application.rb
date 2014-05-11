@@ -17,7 +17,6 @@ Bundler.require(*Rails.groups)
 module LoveChild
   class Application < Rails::Application
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
-    config.assets.paths << Rails.root.join("app", "assets", "elements")
 
     class SlimTemplate < Slim::Template
     end
