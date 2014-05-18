@@ -1,33 +1,24 @@
-humanize =
-  convert: (datetime) ->
+REFRESH_DELAY = 6000
+
+@HumanTime = React.createClass
+  displayName: "humantime"
+
+  getInitialState: ->
+    {relativeTime: @humanize(@props.datetime)}
+
+  componentDidMount: ->
+    @interval = setInterval(@refresh, REFRESH_DELAY)
+
+  componentWillUnmount: ->
+    clearInterval @interval
+
+  humanize: (datetime) ->
     moment(datetime).fromNow()
 
-  set: (element, datetime) ->
-    element.innerHTML = @convert(datetime)
+  refresh: ->
+    @setState relativeTime: @humanize(@props.datetime)
 
-interval = undefined
+  render: ->
+    R.time {className: "human-time", dateTime: @props.datetime},
+      @state.relativeTime
 
-Polymer "human-time",
-  refresh: true
-  delay: 6000
-
-  setup: ->
-    @datetime
-    element  = @shadowRoot.querySelector "time"
-
-    humanize.set(element, @datetime)
-
-    if @refresh
-      if interval?
-        clearInterval interval
-
-      interval = setInterval =>
-        humanize.set(element, @datetime)
-      , @delay
-
-  datetimeChanged: (oldVal, newVal) ->
-    @datetime = newVal
-    @setup()
-
-  ready: ->
-    @setup()

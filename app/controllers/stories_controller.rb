@@ -1,15 +1,19 @@
 class StoriesController < ApplicationController
+  respond_to :json
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   # GET /stories
   # GET /stories.json
   def index
     @stories = Story.all
+
+    respond_with @stories, each_serializer: StoriesSerializer
   end
 
   # GET /stories/1
   # GET /stories/1.json
   def show
+    respond_with @story
   end
 
   # GET /stories/new
