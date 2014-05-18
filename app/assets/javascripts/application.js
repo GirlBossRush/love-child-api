@@ -16,6 +16,7 @@
 //= require backbone-react-component/lib/component
 //
 //= require initialize
+//= require lib/foundation-title-helper
 //
 //= require_tree ./models
 //= require_tree ./collections

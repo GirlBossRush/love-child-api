@@ -7,12 +7,12 @@ class LC.Routers.Stories extends Backbone.Router
     stories = new LC.Collections.Stories()
 
     stories.fetch
-      success: ->
-        LC.render LC.Components.StoryList(collection: stories), document.querySelector("main")
+      success: (collection) ->
+        LC.render LC.Components.StoryList({collection}), document.querySelector("main")
 
   show: (id) ->
     story = new LC.Models.Story({id})
 
     story.fetch
-      success: ->
-        LC.render LC.Components.Story(model: story), document.querySelector("main")
+      success: (model) ->
+        LC.render LC.Components.Story({model}), document.querySelector("main")
