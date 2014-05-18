@@ -1,6 +1,6 @@
-REFRESH_DELAY = 6000
+REFRESH_DELAY = 1000
 
-@HumanTime = React.createClass
+LC.Components.HumanTime = React.createClass
   displayName: "humantime"
 
   getInitialState: ->
@@ -19,6 +19,6 @@ REFRESH_DELAY = 6000
     @setState relativeTime: @humanize(@props.datetime)
 
   render: ->
-    R.time {className: "human-time", dateTime: @props.datetime},
+    R.time {className: "human-time", dateTime: @props.datetime, title: @props.datetime},
       @state.relativeTime
 

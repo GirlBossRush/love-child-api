@@ -1,5 +1,5 @@
 class StoriesSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :updated_at, :url
+  attributes :id, :title, :description, :created_at, :updated_at, :author, :url
 
   def url
     story_url(object)

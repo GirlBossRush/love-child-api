@@ -1,6 +1,6 @@
 doctype html
 
-html
+html.no-js lang="en"
   head
     title Love Child
 
@@ -16,12 +16,15 @@ html
 
     = favicon_link_tag "foundation/diamond.png"
 
-    = javascript_include_tag :application
-
-  body[unresolved]
+  body
+    noscript
+      | Please enable Javascript.
+      a href="http://enable-javascript.com" http://enable-javascript.com
     .mask
     = render "shared/global_navigation"
 
     main
+      | blank
       = yield
 
+    = javascript_include_tag :application

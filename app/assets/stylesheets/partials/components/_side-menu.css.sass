@@ -1,6 +1,6 @@
 $side-menu-width: 280px
 
-side-menu
+.side-menu
   display: block
 
   position: fixed
@@ -18,13 +18,13 @@ side-menu
 
   transition: all $speed-medium ease-out
 
-  &[expanded]
+  &.expanded
     +transform(none)
 
-  &[expanded] + main
+  &.expanded + main
     +transform(translate3d($side-menu-width, 0, 0))
 
-  #expander
+  .menu-expander
     position: absolute
     top: 0
     left: 100%
@@ -38,5 +38,5 @@ side-menu
       cursor: pointer
       color: red
 
-  &[expanded] #expander
+  &.expanded .menu-expander
     display: none

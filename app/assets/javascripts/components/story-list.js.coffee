@@ -1,27 +1,32 @@
-Polymer "story-list",
-  resource:
-    stories: "/stories.json"
-    story: (id) ->
-      "/stories/#{id}.json"
+LC.Components.StoryList = Backbone.React.Component.extend
+  displayName: "storyList"
 
-  populate: (el, data) ->
-    @stories = data.response
+  navigateStory: (id) ->
+    LC.navigate "/stories/#{id}", true
 
-  removeRow: (id) ->
-    @shadowRoot
-      .querySelector(".stories tr[data-id='#{id}']")
-      .setAttribute("hidden")
+  delete: (id) ->
+    model = @getCollection().get(id)
 
-  deleteStory: (e, d, el) ->
-    id = el.parentElement.dataset.id
+    model.destroy
+      success: =>
+        @forceUpdate()
 
-    request = document.createElement "core-ajax"
+  rowRender: (story) ->
+    R.tr {"data-id": story.id, key: story.id},
+      R.td {className: "id"}, story.id
+      R.td {className: "title"},
+        R.span {className: "link", onClick: @navigateStory.bind(this, story.id)}, story.title
+      R.td {className: "description"}, story.description
+      R.td {className: "created-at"},
+        LC.Components.HumanTime(datetime: story.created_at)
+      R.td {className: "link delete-story", onClick: @delete.bind(this, story.id)}, "Delete"
 
-    _.extend request, LC.AJAX.DELETE,
-      url: @resource.story(id)
-
-    .addEventListener "core-response", =>
-      @removeRow(id)
-
-    request.go()
-
+  render: ->
+    R.table {className: "stories common-table"},
+      R.thead null,
+        R.th {className: "id"}, "ID"
+        R.th {className: "title"}, "Title"
+        R.th {className: "description"}, "Description"
+        R.th {className: "created-at"}, "Created At"
+        R.th {className: "delete-story"}, "Delete"
+      R.tbody null, @props.collection.map(@rowRender)

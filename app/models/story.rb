@@ -5,4 +5,9 @@ class Story < ActiveRecord::Base
 
   validates :body, length: { minimum: 5 }
   # --
+
+  def author
+    # Placeholder
+    "John Smith"
+  end
 end

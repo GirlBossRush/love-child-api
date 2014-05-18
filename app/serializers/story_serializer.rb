@@ -1,5 +1,5 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :updated_at
+  attributes :id, :title, :description, :created_at, :updated_at, :author, :body
 
   def created_at
     object.created_at.iso8601
