@@ -1,5 +1,7 @@
 //= require moment/moment
 //
+//= require modernizr/modernizr
+//
 //= require underscore/underscore
 //
 //= require zepto/src/zepto

@@ -39,11 +39,13 @@ body
   body.disabled &
     visibility: visible
 
-main
+.main-container
   height: 100%
 
   +display(flex)
   +justify-content(center)
 
-  transition: all $speed-medium ease-out
+main
+  height: 100%
 
+  +flex-grow(1)

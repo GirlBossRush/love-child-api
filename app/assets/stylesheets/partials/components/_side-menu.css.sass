@@ -1,6 +1,6 @@
 $side-menu-width: 280px
 
-.side-menu
+#side-container
   display: block
 
   position: fixed
@@ -14,29 +14,61 @@ $side-menu-width: 280px
   background: $black
 
   color: $white
-  +transform(translate3d(-$side-menu-width, 0, 0))
+  +box-sizing(border-box)
 
-  transition: all $speed-medium ease-out
+  transition: -moz-transform $speed-fast ease-out
+  transition: -webkit-transform $speed-fast ease-out
+  transition: -ms-transform $speed-fast ease-out
+  transition: transform $speed-fast ease-out
 
-  &.expanded
-    +transform(none)
+  +transform(translateX(-$side-menu-width))
 
-  &.expanded + main
-    +transform(translate3d($side-menu-width, 0, 0))
+  .link
+    color: $white
 
-  .menu-expander
-    position: absolute
-    top: 0
-    left: 100%
+  .menu-content
+    .menu-expander
+      position: absolute
+      top: 0
+      left: 100%
 
-    color: $black
+      color: $black
 
-    margin-top: 10px
-    margin-left: 10px
+      margin-top: 10px
+      margin-left: 10px
 
-    &:hover
-      cursor: pointer
-      color: red
+      &:hover
+        cursor: pointer
+        color: red
 
-  &.expanded .menu-expander
-    display: none
+    .click-mask
+      visibility: hidden
+
+      cursor: alias
+
+      width: 400%
+      height: 100%
+
+      position: fixed
+      left: 100%
+      top: 0
+
+body.side-menu-expanded
+  #side-container
+    +transform(translateX(0))
+
+    .menu-content
+      .menu-expander
+        display: none
+
+      .click-mask
+        visibility: visible
+
+
+html.csstransforms3d
+  #side-container
+    +transform(translate3d(-$side-menu-width, 0, 0))
+
+  body.side-menu-expanded
+    #side-container
+      +transform(translate3d(0, 0, 0))

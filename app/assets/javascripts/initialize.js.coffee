@@ -17,7 +17,7 @@
     Backbone.history.start
       pushState: true
 
-$ ->
-  $("html").removeClass "no-js"
+    LC.render LC.Components.SideMenu(), document.getElementById("side-container")
 
+$ ->
   LC.init()
