@@ -18,15 +18,6 @@ module LoveChild
   class Application < Rails::Application
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
-    class SlimTemplate < Slim::Template
-    end
-
-    config.before_initialize do |app|
-      require 'sprockets'
-      Sprockets::Engines # Force autoloading
-      Sprockets.register_engine '.slim', SlimTemplate
-    end
-
     Slim::Engine.set_default_options tabsize: 2
 
     # Settings in config/environments/* take precedence over those specified here.
