@@ -44,8 +44,6 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     daemons (1.1.9)
-    emcee (0.1.6)
-      rails (~> 4.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
@@ -145,7 +143,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bourbon
   coffee-rails (~> 4.0.0)
-  emcee
   pg
   pry-rails
   rails (= 4.1.0)
