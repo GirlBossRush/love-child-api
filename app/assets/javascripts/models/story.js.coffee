@@ -1,4 +1,4 @@
-class LC.Models.Story extends Backbone.Model
+class App.Models.Story extends Backbone.Model
   # toJSON: ->
   #   {user: _.clone( @attributes )}
 

@@ -1,4 +1,4 @@
-Object.defineProperty LC, "title",
+Object.defineProperty App, "title",
   set: (value) ->
     base = "Love Child"
 

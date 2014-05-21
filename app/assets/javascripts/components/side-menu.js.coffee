@@ -5,7 +5,7 @@ links = {
   "Create": "/Create"
 }
 
-LC.Components.SideMenu = React.createClass
+App.Components.SideMenu = React.createClass
   displayName: "sideMenu"
 
   getInitialState: ->
@@ -20,7 +20,7 @@ LC.Components.SideMenu = React.createClass
 
   navigate: (e) ->
     href = $(e.target).attr("href")
-    LC.navigate(href, true)
+    App.navigate(href, true)
 
   render: ->
     classes = React.addons.classSet

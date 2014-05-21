@@ -1,3 +1,3 @@
-class LC.Collections.Stories extends Backbone.Collection
+class App.Collections.Stories extends Backbone.Collection
   url: '/api/stories'
-  model: LC.Models.Story
+  model: App.Models.Story

@@ -1,20 +1,30 @@
-class LC.Routers.Stories extends Backbone.Router
+class App.Routers.Stories extends Backbone.Router
   routes:
     'stories(/)': 'index'
+    'stories/new': 'new'
     'stories/:id': 'show'
 
   index: ->
-    stories = new LC.Collections.Stories()
+    stories = new App.Collections.Stories()
 
     stories.fetch
       success: (collection) ->
-        LC.title = "(#{collection.length}) Stories"
-        LC.render LC.Components.StoryList({collection}), document.querySelector("main")
+        App.title = "(#{collection.length}) Stories"
+
+        App.render
+          component: "StoryList"
+          props: {collection}
+          anchor: "main"
 
   show: (id) ->
-    story = new LC.Models.Story({id})
+    story = new App.Models.Story({id})
 
     story.fetch
       success: (model) ->
-        LC.title = [model.attributes.title, "Stories"]
-        LC.render LC.Components.Story({model}), document.querySelector("main")
+        App.title = [model.attributes.title, "Stories"]
+
+        App.render
+          component: "Story"
+          props: {model}
+          anchor: "main"
+

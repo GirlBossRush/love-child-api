@@ -1,6 +1,6 @@
 @R = React.DOM
 
-@LC =
+@App =
   Models: {}
   Collections: {}
   Components: {}
@@ -8,7 +8,18 @@
   Debug: {}
 
   navigate: Backbone.history.navigate.bind(Backbone.history)
-  render: React.renderComponent.bind(React)
+
+  Anchors:
+    main: document.querySelector("main")
+
+    sideMenu: document.getElementById("side-container")
+
+  # Wrapper to avoid namespace typing repetition
+  render: (options = {props: {}, anchor: "main"}) ->
+    component = @Components[options.component](options.props)
+    anchor = @Anchors[options.anchor]
+
+    React.renderComponent component, anchor
 
   init: ->
     new @Routers.Application()
@@ -17,7 +28,9 @@
     Backbone.history.start
       pushState: true
 
-    LC.render LC.Components.SideMenu(), document.getElementById("side-container")
+    @render
+      component: "SideMenu"
+      anchor: "sideMenu"
 
 $ ->
-  LC.init()
+  App.init()

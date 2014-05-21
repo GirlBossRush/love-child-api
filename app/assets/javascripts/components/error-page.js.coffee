@@ -1,4 +1,4 @@
-LC.Components.errorPage = React.createClass
+App.Components.ErrorPage = React.createClass
   displayName: "errorPage"
   render: ->
     R.div {className: "error-page", "data-code": @props.code},

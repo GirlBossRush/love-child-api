@@ -1,8 +1,8 @@
-LC.Components.StoryList = Backbone.React.Component.extend
+App.Components.StoryList = Backbone.React.Component.extend
   displayName: "storyList"
 
   navigateStory: (id) ->
-    LC.navigate "/stories/#{id}", true
+    App.navigate "/stories/#{id}", true
 
   delete: (id) ->
     model = @getCollection().get(id)
@@ -18,7 +18,7 @@ LC.Components.StoryList = Backbone.React.Component.extend
         R.span {className: "link", onClick: @navigateStory.bind(this, story.id)}, story.title
       R.td {className: "description"}, story.description
       R.td {className: "created-at"},
-        LC.Components.HumanTime(datetime: story.created_at)
+        App.Components.HumanTime(datetime: story.created_at)
       R.td {className: "link delete-story", onClick: @delete.bind(this, story.id)}, "Delete"
 
   render: ->

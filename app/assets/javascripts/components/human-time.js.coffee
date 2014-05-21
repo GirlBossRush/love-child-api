@@ -1,6 +1,6 @@
 REFRESH_DELAY = 1000
 
-LC.Components.HumanTime = React.createClass
+App.Components.HumanTime = React.createClass
   displayName: "humantime"
 
   getInitialState: ->
