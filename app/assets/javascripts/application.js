@@ -14,6 +14,8 @@
 //= require bootstrap
 //
 //= require backbone/backbone
+//= require lib/backbone-sync-json-rails-patch
+//= require lib/backbone-sync-csrf-rails-patch
 //
 //= require react/react-with-addons
 //= require backbone-react-component/lib/component

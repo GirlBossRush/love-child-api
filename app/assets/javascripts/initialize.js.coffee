@@ -1,6 +1,7 @@
 @R = React.DOM
 
 @App =
+  CSRFToken: document.querySelector("meta[name='csrf-token']").content
   Models: {}
   Collections: {}
   Components: {}
@@ -14,7 +15,7 @@
 
     sideMenu: document.getElementById("side-container")
 
-  # Wrapper to avoid namespace typing repetition
+  # Wrapper to avoid namespace typing repetition.
   render: (options = {props: {}, anchor: "main"}) ->
     component = @Components[options.component](options.props)
     anchor = @Anchors[options.anchor]

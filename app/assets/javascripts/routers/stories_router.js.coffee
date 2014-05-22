@@ -29,6 +29,11 @@ class App.Routers.Stories extends Backbone.Router
           anchor: "main"
 
   new: ->
+    App.title = "New Story"
+
+    collection = new App.Collections.Stories()
+
     App.render
       component: "NewStory"
+      props: {collection}
       anchor: "main"

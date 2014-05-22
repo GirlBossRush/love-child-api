@@ -1,5 +1,4 @@
 class App.Models.Story extends Backbone.Model
-  # toJSON: ->
-  #   {user: _.clone( @attributes )}
+  name: "story"
 
   urlRoot: "/api/stories"
