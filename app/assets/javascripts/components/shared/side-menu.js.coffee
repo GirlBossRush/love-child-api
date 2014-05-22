@@ -1,9 +1,40 @@
-links = {
-  "Home": "/"
-  "Stories": "/stories"
-  "Search": "/search"
-  "Create": "/Create"
-}
+navigationItems = [
+  {
+    label: "Home"
+    icon: "home"
+    path: "/"
+  }
+
+  {
+    label: "Stories"
+    icon: "list-alt"
+    path: "/stories"
+  }
+
+  {
+    label: "Search"
+    icon: "search"
+    path: "/stories/search"
+  }
+
+  {
+    label: "Create"
+    icon: "file"
+    path: "stories/new"
+  }
+
+  {
+    label: "Settings"
+    icon: "user"
+    path: "/settings"
+  }
+
+  {
+    label: "Library"
+    icon: "book"
+    path: "/library"
+  }
+]
 
 App.Components.SideMenu = React.createClass
   displayName: "sideMenu"
@@ -18,9 +49,15 @@ App.Components.SideMenu = React.createClass
 
     @forceUpdate()
 
-  navigate: (e) ->
-    href = $(e.target).attr("href")
-    App.navigate(href, true)
+  navigate: (path) ->
+    App.navigate(path, true)
+
+    @toggleExpansion()
+
+  navigationItem: (item) ->
+    R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(@, item.path)},
+      R.span {className: "accent glyphicon glyphicon-#{item.icon}"}, ""
+      item.label
 
   render: ->
     classes = React.addons.classSet
@@ -28,9 +65,9 @@ App.Components.SideMenu = React.createClass
       "expanded": @state.expanded
 
     R.div {className: classes},
-      R.ul null,
-        for name, href of links
-          R.li {className: "link", href, key: href, onClick: @navigate}, name
+      R.ul {className: "list-group"},
+        navigationItems.map(@navigationItem)
+
       R.div {className: "menu-expander", onClick: @toggleExpansion},
-        R.i {className: "fa fa-list fa-2x"}
+        R.i {className: "glyphicon glyphicon-list"}
       R.div {className: "click-mask", onClick: @toggleExpansion}

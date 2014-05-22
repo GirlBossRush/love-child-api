@@ -22,15 +22,37 @@ $side-menu-width: 280px
 
   +transform(translateX(-$side-menu-width))
 
-  .link
-    color: $white
-
   .menu-content
+    .list-group
+      .list-group-item
+        background: $black
+
+        cursor: pointer
+        color: $gray-light
+
+        border-left: none
+        border-right: none
+
+        &:first-child
+          border-radius: 0
+          border-top: none
+
+        &:last-child
+          border-radius: 0
+          border-bottom: none
+
+        &:hover
+          color: $white
+
+      .accent
+        margin-right: 10px
+
     .menu-expander
       position: absolute
       top: 0
       left: 100%
 
+      font-size: 1.6em
       color: $black
 
       margin-top: 10px
