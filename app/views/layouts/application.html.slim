@@ -4,8 +4,6 @@ html.no-js lang="en"
   head
     title Love Child
 
-    link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"
-
     = stylesheet_link_tag :application, media: :all
 
     meta charset="utf-8"
@@ -23,8 +21,7 @@ html.no-js lang="en"
     .mask
 
     aside#side-container
-    main
-      | blank
+    main.container
       = yield
 
     = javascript_include_tag :application

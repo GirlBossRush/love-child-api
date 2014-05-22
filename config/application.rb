@@ -16,13 +16,13 @@ Bundler.require(*Rails.groups)
 
 module LoveChild
   class Application < Rails::Application
+    # Bower.
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
-    Slim::Engine.set_default_options tabsize: 2
+    # Bootstrap.
+    Sass::Script::Number.precision = 8
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    Slim::Engine.set_default_options tabsize: 2
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

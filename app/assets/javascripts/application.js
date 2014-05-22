@@ -9,6 +9,9 @@
 //= require zepto/src/ajax
 //= require zepto/src/form
 //= require zepto/src/ie
+//= require zepto-patch
+//
+//= require bootstrap
 //
 //= require backbone/backbone
 //

@@ -22,7 +22,7 @@ App.Components.StoryList = Backbone.React.Component.extend
       R.td {className: "link delete-story", onClick: @delete.bind(this, story.id)}, "Delete"
 
   render: ->
-    R.table {className: "stories common-table"},
+    R.table {className: "table stories"},
       R.thead null,
         R.th {className: "id"}, "ID"
         R.th {className: "title"}, "Title"
