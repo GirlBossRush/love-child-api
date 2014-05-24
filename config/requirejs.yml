@@ -1,0 +1,16 @@
+paths:
+  underscore: "underscore/underscore"
+  modernizr: "modernizr/modernizr"
+  moment: "moment/moment"
+  jquery: "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min"
+
+  mixen: mixen/mixen
+
+  react: "react/react-with-addons"
+  react-dom: "lib/react-dom"
+
+  vendor-backbone: "backbone/backbone"
+  backbone: "lib/backbone-rails-patch"
+  backbone-react-component: "backbone-react-component/lib/component"
+
+  document-helper: "lib/document-helper"

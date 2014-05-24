@@ -1,3 +1,4 @@
-class App.Collections.Stories extends Backbone.Collection
-  url: '/api/stories'
-  model: App.Models.Story
+define ["backbone", "models/story"], (Backbone, Story) ->
+  class Stories extends Backbone.Collection
+    url: '/api/stories'
+    model: Story

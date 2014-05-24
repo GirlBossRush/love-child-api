@@ -36,38 +36,43 @@ navigationItems = [
   }
 ]
 
-App.Components.SideMenu = React.createClass
-  displayName: "sideMenu"
+define (require) ->
+  React          = require("react")
+  R              = require("react-dom")
+  DocumentHelper = require("document-helper")
 
-  getInitialState: ->
-    expanded: false
+  SideMenu = React.createClass
+    displayName: "sideMenu"
 
-  toggleExpansion: ->
-    @state.expanded = !@state.expanded
+    getInitialState: ->
+      expanded: false
 
-    $("body").toggleClass("side-menu-expanded", @state.expanded)
+    toggleExpansion: ->
+      @state.expanded = !@state.expanded
 
-    @forceUpdate()
+      $("body").toggleClass("side-menu-expanded", @state.expanded)
 
-  navigate: (path) ->
-    App.navigate(path, true)
+      @forceUpdate()
 
-    @toggleExpansion()
+    navigate: (path) ->
+      DocumentHelper.navigate(path, true)
 
-  navigationItem: (item) ->
-    R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(@, item.path)},
-      R.span {className: "accent glyphicon glyphicon-#{item.icon}"}, ""
-      item.label
+      @toggleExpansion()
 
-  render: ->
-    classes = React.addons.classSet
-      "menu-content": true
-      "expanded": @state.expanded
+    navigationItem: (item) ->
+      R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(@, item.path)},
+        R.span {className: "accent glyphicon glyphicon-#{item.icon}"}, ""
+        item.label
 
-    R.div {className: classes},
-      R.ul {className: "list-group"},
-        navigationItems.map(@navigationItem)
+    render: ->
+      classes = React.addons.classSet
+        "menu-content": true
+        "expanded": @state.expanded
 
-      R.div {className: "menu-expander", onClick: @toggleExpansion},
-        R.i {className: "glyphicon glyphicon-list"}
-      R.div {className: "click-mask", onClick: @toggleExpansion}
+      R.div {className: classes},
+        R.ul {className: "list-group"},
+          navigationItems.map(@navigationItem)
+
+        R.div {className: "menu-expander", onClick: @toggleExpansion},
+          R.i {className: "glyphicon glyphicon-list"}
+        R.div {className: "click-mask", onClick: @toggleExpansion}

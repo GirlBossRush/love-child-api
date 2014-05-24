@@ -1,4 +1,5 @@
-class App.Models.Story extends Backbone.Model
-  name: "story"
+define ["backbone"], (Backbone) ->
+  class Story extends Backbone.Model
+    paramRoot: "story"
 
-  urlRoot: "/api/stories"
+    urlRoot: "/api/stories"

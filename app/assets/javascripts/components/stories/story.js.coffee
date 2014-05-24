@@ -1,12 +1,18 @@
-App.Components.Story = Backbone.React.Component.extend
-  render: ->
-    R.section {className: "story"},
-      R.header {className: "headline"},
-        R.div {className: "title"}, @props.title
-        R.div {className: "description"}, @props.description
-        R.div {className: "author"}, @props.author
-        App.Components.HumanTime {datetime: @props.updated_at}
-        R.hr {className: "section-seperator"}
+define (require) ->
+  BackboneReactComponent = require("backbone-react-component")
+  R                      = require("react-dom")
+  HumanTime              = require("components/shared/human-time")
 
-      R.article {className: "body"}, @props.body
-      R.footer {className: "summary"}
+  StoryView = BackboneReactComponent.extend
+    displayName: "story"
+    render: ->
+      R.section {className: "story"},
+        R.header {className: "headline"},
+          R.div {className: "title"}, @props.title
+          R.div {className: "description"}, @props.description
+          R.div {className: "author"}, @props.author
+          HumanTime {datetime: @props.updated_at}
+          R.hr {className: "section-seperator"}
+
+        R.article {className: "body"}, @props.body
+        R.footer {className: "summary"}

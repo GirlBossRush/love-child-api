@@ -1,75 +1,83 @@
-App.Components.NewStory = Backbone.React.Component.extend
-  getInitialState: ->
-    title: ""
-    description: ""
-    body: ""
+define (require) ->
+  BackboneReactComponent = require("backbone-react-component")
+  R                      = require("react-dom")
+  Story                  = require("models/story")
+  DocumentHelper         = require("document-helper")
 
-  handleChange: (e) ->
-    target = e.target
-    key = target.getAttribute('name')
-    nextState = {}
-    nextState[key] = target.value
-    this.setState(nextState)
+  NewStory = BackboneReactComponent.extend
+    displayName: "newStory"
 
-  handleSubmit: (e) ->
-    e.preventDefault()
-    collection = @getCollection()
+    getInitialState: ->
+      title: ""
+      description: ""
+      body: ""
 
-    model = new App.Models.Story(@state)
+    handleChange: (e) ->
+      target = e.target
+      key = target.getAttribute('name')
+      nextState = {}
+      nextState[key] = target.value
+      this.setState(nextState)
 
-    collection.create model,
-      wait: true
+    handleSubmit: (e) ->
+      e.preventDefault()
 
-      success: (model, data) ->
-        App.navigate "/stories/#{model.id}", true
+      collection = @getCollection()
+      model      = new Story(@state)
 
-      error: (model, data) ->
-        console.log model, data
+      collection.create model,
+        wait: true
 
-  createForm: ->
-    R.form {role: "form", onSubmit: @handleSubmit},
-      R.h1 null, "New Story"
-      R.input {type: "hidden", value: @state.id}
+        success: (model, data) ->
+          DocumentHelper.navigate "/stories/#{model.id}", true
 
-      R.div {className: "form-group"},
-        R.label {className: "sr-only"}, "Title"
+        error: (model, data) ->
+          console.log model, data
 
-        R.input
-          className: "form-control"
-          type: "text"
-          value: @state.title
-          onChange: @handleChange
-          name: "title"
-          placeholder: "Title"
+    createForm: ->
+      R.form {role: "form", onSubmit: @handleSubmit},
+        R.h1 null, "New Story"
+        R.input {type: "hidden", value: @state.id}
 
-      R.div {className: "form-group"},
-        R.label {className: "sr-only"}, "Description"
+        R.div {className: "form-group"},
+          R.label {className: "sr-only"}, "Title"
 
-        R.input
-          className: "form-control"
-          type: "text"
-          value: @state.description
-          onChange: @handleChange
-          name: "description"
-          placeholder: "Description"
+          R.input
+            className: "form-control"
+            type: "text"
+            value: @state.title
+            onChange: @handleChange
+            name: "title"
+            placeholder: "Title"
 
-      R.div {className: "form-group"},
-        R.label {className: "sr-only"}, "body"
+        R.div {className: "form-group"},
+          R.label {className: "sr-only"}, "Description"
 
-        R.textarea
-          className: "form-control"
-          value: @state.body
-          onChange: @handleChange
-          name: "body"
-          rows: 3, placeholder: "Body"
+          R.input
+            className: "form-control"
+            type: "text"
+            value: @state.description
+            onChange: @handleChange
+            name: "description"
+            placeholder: "Description"
 
-      R.div {className: "form-group"},
-        R.input
-          className: "btn btn-default"
-          type: "submit"
-          value: "Create Story"
+        R.div {className: "form-group"},
+          R.label {className: "sr-only"}, "body"
+
+          R.textarea
+            className: "form-control"
+            value: @state.body
+            onChange: @handleChange
+            name: "body"
+            rows: 3, placeholder: "Body"
+
+        R.div {className: "form-group"},
+          R.input
+            className: "btn btn-default"
+            type: "submit"
+            value: "Create Story"
 
 
-  render: ->
-    R.div {className: "new-story"},
-      @createForm()
+    render: ->
+      R.div {className: "new-story"},
+        @createForm()
