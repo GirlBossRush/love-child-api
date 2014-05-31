@@ -23,19 +23,26 @@ define (require) ->
         text: paragraph
         index: i
 
-    deleteParagraph: (paragraph) ->
-      body = @state.body
-      body.splice(paragraph.index, 1)
-
-      # Reindex.
+    # Paragraphs must be reindexed when data is added or removed.
+    reindex: (body, callback) ->
       for paragraph, i in body
         paragraph.index = i
 
-      @setState {body}, =>
-        neighborParagraph = if paragraph.index == 0
-           body[0]
+      @setState {body}, callback
+
+    deleteParagraph: (paragraph) ->
+      index = paragraph.index
+      body = @state.body
+      body.splice(index, 1)
+
+      @reindex body, =>
+        neighborParagraph = if index == body.length
+          # Last element was removed. The next "last" element will be in the position
+          # before this index.
+           body[index - 1]
         else
-           body[paragraph.index]
+          # After removing this paragraph, the next target should be in the same position.
+           body[index]
 
         @enableEditMode(neighborParagraph)
 
@@ -48,11 +55,7 @@ define (require) ->
         text: ""
         editing: false
 
-      # Reindex.
-      for paragraph, i in body
-        paragraph.index = i
-
-      @setState {body}, =>
+      @reindex body, =>
         @enableEditMode({id: newID, index: index})
 
     # --- Editing ---
@@ -78,6 +81,7 @@ define (require) ->
       body = @state.body
       source = @refs[paragraph.id].getDOMNode()
 
+      # Empty paragraph blocks should be removed unless only one remains.
       if source.value.length || body.length == 1
         body[paragraph.index].text = source.value
         @setState({body})
