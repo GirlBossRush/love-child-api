@@ -7,8 +7,97 @@ define (require) ->
   _                      = require("underscore")
 
   StoryView = BackboneReactComponent.extend
-    # --- Utility ---
     displayName: "storyEdit"
+
+    # --- Renderers ---
+
+    render: ->
+      R.section {className: "story"},
+        R.header {className: "headline"},
+          R.div {className: "title"}, @props.title
+          R.div {className: "description"}, @props.description
+          R.div {className: "author"}, @props.author
+          HumanTime {datetime: @props.updated_at}
+          R.hr {className: "section-seperator"}
+
+        R.article {className: "body"},
+          @potentialParagraph(0)
+          @state.body.map(@paragraph)
+
+        R.footer {className: "summary"}
+
+    potentialParagraph: (index) ->
+      R.span
+        className: "glyphicon glyphicon-plus new-paragraph"
+        onClick: @insertParagraph.bind(this, index)
+
+    paragraph: (paragraph) ->
+      classes = React.addons.classSet
+        "paragraph-pair": true
+        editing: paragraph.editing
+
+      R.section {className: classes, key: paragraph.id},
+        # Markdown representation.
+        R.textarea
+          className: "form-control markdown-source"
+          value: paragraph.text
+          ref: paragraph.id
+          onKeyDown: @handleKeyDown.bind(this, paragraph)
+          onChange: @handleChange.bind(this, paragraph)
+          onBlur: @disableEditMode.bind(this, paragraph)
+          placeholder: "..."
+
+        # Rendered representation.
+        R.p
+          className: "rendered-paragraph"
+          onClick: @enableEditMode.bind(this, paragraph)
+          dangerouslySetInnerHTML:
+            __html: Markdown.inlineLexer(paragraph.text, [])
+
+        @potentialParagraph(paragraph.index + 1)
+
+    # --- Handlers ---
+
+    handleChange: (paragraph) ->
+      body = @state.body
+      source = @refs[paragraph.id].getDOMNode()
+
+      # Empty paragraph blocks should be removed unless only one remains.
+      if source.value.length || body.length == 1
+        body[paragraph.index].text = source.value
+        @setState({body})
+      else
+        @deleteParagraph(paragraph)
+
+    handleKeyDown: (paragraph, e) ->
+      body = @state.body
+
+      switch e.nativeEvent.keyCode
+        when 8 # Backspace.
+          # The change event does not occur on empty text areas.
+          # Backspacing an empty field should remove it.
+          @handleChange(paragraph)
+
+        when 9 # Tab
+          e.preventDefault()
+
+          # Imitate a typical form tab index.
+          index = paragraph.index + (if e.nativeEvent.shiftKey then -1 else 1)
+
+          if index < 0
+            # Insert new paragraph before the first existing paragraph.
+            @insertParagraph(0)
+
+          else if index < body.length
+            neighborParagraph = @state.body[index]
+            @disableEditMode(paragraph)
+            @enableEditMode(neighborParagraph)
+
+          else
+            # Insert new paragraph after last existing paragraph.
+            @insertParagraph(paragraph.index + 1)
+
+    # --- Utility ---
 
     generateID: ->
       _.uniqueId("paragraph")
@@ -74,91 +163,3 @@ define (require) ->
 
       body[paragraph.index].editing = false
       @setState({body})
-
-    # --- Handlers ---
-
-    handleChange: (paragraph) ->
-      body = @state.body
-      source = @refs[paragraph.id].getDOMNode()
-
-      # Empty paragraph blocks should be removed unless only one remains.
-      if source.value.length || body.length == 1
-        body[paragraph.index].text = source.value
-        @setState({body})
-      else
-        @deleteParagraph(paragraph)
-
-    handleKeyDown: (paragraph, e) ->
-      body = @state.body
-
-      switch e.nativeEvent.keyCode
-        when 8 # Backspace.
-          # The change event does not occur on empty text areas.
-          # Backspacing an empty field should remove it.
-          @handleChange(paragraph)
-
-        when 9 # Tab
-          e.preventDefault()
-
-          # Imitate a typical form tab index.
-          index = paragraph.index + (if e.nativeEvent.shiftKey then -1 else 1)
-
-          if index < 0
-            # Insert new paragraph before the first existing paragraph.
-            @insertParagraph(0)
-
-          else if index < body.length
-            neighborParagraph = @state.body[index]
-            @disableEditMode(paragraph)
-            @enableEditMode(neighborParagraph)
-
-          else
-            # Insert new paragraph after last existing paragraph.
-            @insertParagraph(paragraph.index + 1)
-
-    # --- Renderers ---
-
-    potentialParagraph: (index) ->
-      R.span
-        className: "glyphicon glyphicon-plus new-paragraph"
-        onClick: @insertParagraph.bind(this, index)
-
-    paragraph: (paragraph) ->
-      classes = React.addons.classSet
-        "paragraph-pair": true
-        editing: paragraph.editing
-
-      R.section {className: classes, key: paragraph.id},
-        # Markdown representation.
-        R.textarea
-          className: "form-control markdown-source"
-          value: paragraph.text
-          ref: paragraph.id
-          onKeyDown: @handleKeyDown.bind(this, paragraph)
-          onChange: @handleChange.bind(this, paragraph)
-          onBlur: @disableEditMode.bind(this, paragraph)
-          placeholder: "..."
-
-        # Rendered representation.
-        R.p
-          className: "rendered-paragraph"
-          onClick: @enableEditMode.bind(this, paragraph)
-          dangerouslySetInnerHTML:
-            __html: Markdown.inlineLexer(paragraph.text, [])
-
-        @potentialParagraph(paragraph.index + 1)
-
-    render: ->
-      R.section {className: "story"},
-        R.header {className: "headline"},
-          R.div {className: "title"}, @props.title
-          R.div {className: "description"}, @props.description
-          R.div {className: "author"}, @props.author
-          HumanTime {datetime: @props.updated_at}
-          R.hr {className: "section-seperator"}
-
-        R.article {className: "body"},
-          @potentialParagraph(0)
-          @state.body.map(@paragraph)
-
-        R.footer {className: "summary"}
