@@ -10,12 +10,14 @@ define (require) ->
     index: require("components/stories/index")
     show:  require("components/stories/show")
     new:   require("components/stories/new")
+    edit:  require("components/stories/edit")
 
   class StoriesRouter extends Backbone.Router
     routes:
       'stories(/)': 'index'
-      'stories/new': 'new'
       'stories/:id': 'show'
+      'stories/new': 'new'
+      'stories/:id/edit': 'edit'
 
     index: ->
       stories = new Stories()
@@ -46,3 +48,14 @@ define (require) ->
       DocumentHelper.render
         component: views.new({collection})
         anchor: "main"
+
+    edit: (id) ->
+      story = new Story({id})
+
+      story.fetch
+        success: (model) ->
+          DocumentHelper.title = ["Edit", model.attributes.title, "Stories"]
+
+          DocumentHelper.render
+            component: views.edit({model})
+            anchor: "main"
