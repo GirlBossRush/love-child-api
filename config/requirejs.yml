@@ -14,3 +14,5 @@ paths:
   backbone-react-component: "backbone-react-component/lib/component"
 
   document-helper: "lib/document-helper"
+
+  marked: "marked/lib/marked"
