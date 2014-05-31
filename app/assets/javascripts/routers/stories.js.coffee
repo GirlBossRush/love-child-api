@@ -15,8 +15,8 @@ define (require) ->
   class StoriesRouter extends Backbone.Router
     routes:
       'stories(/)': 'index'
-      'stories/:id': 'show'
       'stories/new': 'new'
+      'stories/:id': 'show'
       'stories/:id/edit': 'edit'
 
     index: ->
