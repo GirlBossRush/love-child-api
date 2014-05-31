@@ -5,6 +5,7 @@ define (require) ->
   HumanTime              = require("components/shared/human-time")
   Markdown               = require("marked")
   _                      = require("underscore")
+  keyMap                 = require("lib/key-map")
 
   StoryView = BackboneReactComponent.extend
     displayName: "storyEdit"
@@ -73,12 +74,17 @@ define (require) ->
       body = @state.body
 
       switch e.nativeEvent.keyCode
-        when 8 # Backspace.
+        when keyMap.backspace
           # The change event does not occur on empty text areas.
           # Backspacing an empty field should remove it.
           @handleChange(paragraph)
 
-        when 9 # Tab
+        when keyMap.enter
+          if !e.nativeEvent.shiftKey
+            e.preventDefault()
+            @insertParagraph(paragraph.index + 1)
+
+        when keyMap.tab
           e.preventDefault()
 
           # Imitate a typical form tab index.
