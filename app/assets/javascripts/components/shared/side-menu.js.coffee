@@ -20,7 +20,7 @@ navigationItems = [
   {
     label: "Create"
     icon: "file"
-    path: "stories/new"
+    path: "/stories/new"
   }
 
   {
