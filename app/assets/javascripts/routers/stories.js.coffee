@@ -1,14 +1,15 @@
 define (require) ->
-  Backbone          = require("backbone")
-  react             = require("react")
-  DocumentHelper    = require("document-helper")
+  Backbone       = require("backbone")
+  react          = require("react")
+  DocumentHelper = require("document-helper")
 
-  Story             = require("models/story")
-  StoriesCollection = require("collections/stories")
+  Story          = require("models/story")
+  Stories        = require("collections/stories")
 
-  StoryList         = require("components/stories/story-list")
-  StoryView         = require("components/stories/story")
-  NewStoryView      = require("components/stories/new-story")
+  views =
+    index: require("components/stories/index")
+    show:  require("components/stories/show")
+    new:   require("components/stories/new")
 
   class StoriesRouter extends Backbone.Router
     routes:
@@ -17,14 +18,14 @@ define (require) ->
       'stories/:id': 'show'
 
     index: ->
-      stories = new StoriesCollection()
+      stories = new Stories()
 
       stories.fetch
         success: (collection) ->
           DocumentHelper.title = "(#{collection.length}) Stories"
 
           DocumentHelper.render
-            component: StoryList({collection})
+            component: views.index({collection})
             anchor: "main"
 
     show: (id) ->
@@ -35,13 +36,13 @@ define (require) ->
           DocumentHelper.title = [model.attributes.title, "Stories"]
 
           DocumentHelper.render
-            component: StoryView({model})
+            component: views.show({model})
             anchor: "main"
 
     new: ->
       DocumentHelper.title = "New Story"
-      collection = new StoriesCollection()
+      collection = new Stories()
 
       DocumentHelper.render
-        component: NewStoryView({collection})
+        component: views.new({collection})
         anchor: "main"
