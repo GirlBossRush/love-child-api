@@ -4,8 +4,6 @@ paths:
   moment: "moment/moment"
   jquery: "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min"
 
-  mixen: mixen/mixen
-
   react: "react/react-with-addons"
   react-dom: "lib/react-dom"
 
@@ -15,4 +13,4 @@ paths:
 
   document-helper: "lib/document-helper"
 
-  marked: "marked/lib/marked"
+  editor: "medium-editor/dist/js/medium-editor"
