@@ -9,9 +9,9 @@ gem 'active_model_serializers'
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', git: 'git@github.com:rails/sass-rails.git'
+gem 'bourbon', '4.0.2'
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bourbon'
 
 gem 'slim-rails'
 gem 'simple_form'

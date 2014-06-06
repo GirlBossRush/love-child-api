@@ -1,6 +1,7 @@
 dependencies = [
   "modernizr"
   "jquery"
+  "bootstrap"
   "routers/application"
   "routers/stories"
   "document-helper"
@@ -8,7 +9,7 @@ dependencies = [
   "components/shared/side-menu"
 ]
 
-require dependencies, (Modernizr, $, ApplicationRouter, StoriesRouter, DocumentHelper, Modal, SideMenu) ->
+require dependencies, (Modernizr, $, bootstrap, ApplicationRouter, StoriesRouter, DocumentHelper, Modal, SideMenu) ->
     new ApplicationRouter()
     new StoriesRouter()
 
@@ -19,4 +20,3 @@ require dependencies, (Modernizr, $, ApplicationRouter, StoriesRouter, DocumentH
       DocumentHelper.render
         component: SideMenu()
         anchor: "asideContent"
-
