@@ -1,4 +1,9 @@
+# Humanized timestamp component.
+# Arguments:
+# * datetime: ISO 8601 datetime String.
+
 REFRESH_DELAY = 1000
+
 define (require) ->
   React  = require("react")
   R      = require("react-dom")
