@@ -7,8 +7,10 @@ paths:
   react: "react/react-with-addons"
   react-dom: "lib/react-dom"
 
-  vendor-backbone: "backbone/backbone"
-  backbone: "lib/backbone-rails-patch"
+  backbone-vendor: "backbone/backbone"
+  backbone-sync-patch: "lib/backbone-sync-patch"
+  backbone-navigate-patch: "lib/backbone-navigate-patch"
+  backbone: "lib/backbone-patch-composition"
   backbone-react-component: "backbone-react-component/lib/component"
 
   document-helper: "lib/document-helper"

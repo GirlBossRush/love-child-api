@@ -2,6 +2,7 @@ dependencies = [
   "modernizr"
   "jquery"
   "bootstrap"
+  "backbone"
   "routers/application"
   "routers/stories"
   "document-helper"
@@ -9,14 +10,14 @@ dependencies = [
   "components/shared/side-menu"
 ]
 
-require dependencies, (Modernizr, $, bootstrap, ApplicationRouter, StoriesRouter, DocumentHelper, Modal, SideMenu) ->
-    new ApplicationRouter()
-    new StoriesRouter()
+require dependencies, (Modernizr, $, bootstrap, Backbone, ApplicationRouter, StoriesRouter, DocumentHelper, Modal, SideMenu) ->
+  new ApplicationRouter()
+  new StoriesRouter()
 
-    $ ->
-      Backbone.history.start
-        pushState: true
+  $ ->
+    Backbone.history.start
+      pushState: true
 
-      DocumentHelper.render
-        component: SideMenu()
-        anchor: "asideContent"
+    DocumentHelper.render
+      component: SideMenu()
+      anchor: "asideContent"

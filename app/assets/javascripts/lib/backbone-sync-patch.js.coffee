@@ -1,9 +1,9 @@
 define (require) ->
-  Backbone = require("vendor-backbone")
+  BackboneVendor = require("backbone-vendor")
 
-  oldSync = Backbone.sync
+  vendorSync = BackboneVendor.sync
 
-  Backbone.sync = (method, model, options) ->
+  return (method, model, options) ->
     # --- Add CSRF token.
     options.beforeSend = (xhr) ->
       xhr.setRequestHeader("X-CSRF-Token", document.querySelector("meta[name='csrf-token']").content)
@@ -19,12 +19,10 @@ define (require) ->
       return json
 
     # Call original sync method
-    response = oldSync(method, model, options)
+    response = vendorSync(method, model, options)
 
     # restore original toJSON() on this model instance
     model.toJSON = model.vendorToJSON
 
     return response
-
-  return Backbone
 
