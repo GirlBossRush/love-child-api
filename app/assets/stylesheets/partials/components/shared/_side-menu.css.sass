@@ -5,7 +5,7 @@ $side-menu-width: 280px
 
   position: fixed
   top: 0
-  left: 0
+  left: -$side-menu-width
   z-index: $priority-high
 
   width: $side-menu-width
@@ -19,8 +19,6 @@ $side-menu-width: 280px
   transition: -webkit-transform $speed-fast ease-out
   transition: -ms-transform $speed-fast ease-out
   transition: transform $speed-fast ease-out
-
-  +transform(translateX(-$side-menu-width))
 
   .menu-content
     .list-group
@@ -63,7 +61,7 @@ $side-menu-width: 280px
         color: red
 
     .click-mask
-      visibility: hidden
+      display: none
 
       cursor: alias
 
@@ -75,21 +73,23 @@ $side-menu-width: 280px
       top: 0
 
 body.side-menu-expanded
+  overflow: hidden
+
   #aside-content
-    +transform(translateX(0))
+    +transform(translateX($side-menu-width))
 
     .menu-content
       .menu-expander
         display: none
 
       .click-mask
-        visibility: visible
+        display: block
 
 
 html.csstransforms3d
   #aside-content
-    +transform(translate3d(-$side-menu-width, 0, 0))
+    +transform(translate3d(0, 0, 0))
 
   body.side-menu-expanded
     #aside-content
-      +transform(translate3d(0, 0, 0))
+      +transform(translate3d($side-menu-width, 0, 0))
