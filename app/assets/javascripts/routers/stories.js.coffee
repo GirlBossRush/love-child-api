@@ -28,7 +28,7 @@ define (require) ->
 
           DocumentHelper.render
             component: views.index({collection})
-            anchor: "main"
+
 
     show: (id) ->
       story = new Story({id})
@@ -39,7 +39,7 @@ define (require) ->
 
           DocumentHelper.render
             component: views.show({model})
-            anchor: "main"
+
 
     new: ->
       DocumentHelper.title = "New Story"
@@ -47,7 +47,7 @@ define (require) ->
 
       DocumentHelper.render
         component: views.new({collection})
-        anchor: "main"
+
 
     edit: (id) ->
       story = new Story({id})
@@ -58,4 +58,4 @@ define (require) ->
 
           DocumentHelper.render
             component: views.edit({model})
-            anchor: "main"
+

@@ -1,6 +1,6 @@
 $side-menu-width: 280px
 
-#side-container
+#aside-content
   display: block
 
   position: fixed
@@ -75,7 +75,7 @@ $side-menu-width: 280px
       top: 0
 
 body.side-menu-expanded
-  #side-container
+  #aside-content
     +transform(translateX(0))
 
     .menu-content
@@ -87,9 +87,9 @@ body.side-menu-expanded
 
 
 html.csstransforms3d
-  #side-container
+  #aside-content
     +transform(translate3d(-$side-menu-width, 0, 0))
 
   body.side-menu-expanded
-    #side-container
+    #aside-content
       +transform(translate3d(0, 0, 0))

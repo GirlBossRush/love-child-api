@@ -18,4 +18,3 @@ define (require) ->
 
       DocumentHelper.render
         component: ErrorPage({code: 404, path})
-        anchor: "main"

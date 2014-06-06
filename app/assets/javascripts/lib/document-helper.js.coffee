@@ -2,6 +2,7 @@
 
 define (require) ->
   Backbone = require("backbone")
+  _        = require("underscore")
   React    = require("react")
 
   DocumentHelper =
@@ -10,13 +11,21 @@ define (require) ->
 
     # Components should only be rendered out to an anchor listed here.
     anchors:
-      main: document.querySelector("main")
-      sideMenu: document.getElementById("side-container")
+      mainContent:  document.getElementById("main-content")
+      aboveContent: document.getElementById("above-content")
+      asideContent:  document.getElementById("aside-content")
 
-    render: (options = {props: {}, anchor: "main"}) ->
+    render: (options = {}) ->
+      _.defaults options,
+        props: {}
+        anchor: "mainContent"
+
       anchor = @anchors[options.anchor]
 
-      React.renderComponent options.component, anchor
+      if anchor
+        React.renderComponent options.component, anchor
+      else
+        throw new Exceptions.UnknownAnchor(options.anchor)
 
   # Treat the document title like a property.
   Object.defineProperty DocumentHelper, "title",
@@ -43,3 +52,15 @@ define (require) ->
       document.title
 
   return DocumentHelper
+
+# --- Exceptions ---
+
+this.Exceptions =
+  UnknownAnchor: (anchor) ->
+    @anchor = anchor
+    @message = "Unable to find anchor"
+
+    @toString = ->
+      "#{@message}: #{@anchor}"
+
+    return
