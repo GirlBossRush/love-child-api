@@ -8,7 +8,7 @@ gem 'active_model_serializers'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-gem 'sanitize'
+gem 'sanitize', '~> 3.0.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', git: 'git@github.com:rails/sass-rails.git'
