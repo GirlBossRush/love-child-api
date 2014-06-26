@@ -4,6 +4,19 @@ class Story < ActiveRecord::Base
   # --
 
   default_scope { order("created_at DESC") }
+
+  def title=(title)
+    write_attribute :title, Sanitize.fragment(title)
+  end
+
+  def description=(description)
+    write_attribute :description, Sanitize.fragment(description)
+  end
+
+  def body=(body)
+    write_attribute :body, Sanitize.fragment(body, Sanitize::Config::BASIC)
+  end
+
   def author
     # Placeholder
     "John Smith"
