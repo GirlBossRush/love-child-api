@@ -9,7 +9,6 @@ define (require) ->
   views =
     index: require("components/stories/index")
     show:  require("components/stories/show")
-    new:   require("components/stories/new")
     edit:  require("components/stories/edit")
 
   class StoriesRouter extends Backbone.Router
@@ -42,12 +41,11 @@ define (require) ->
 
 
     new: ->
-      DocumentHelper.title = "New Story"
-      collection = new Stories()
+      story = new Story()
 
-      DocumentHelper.render
-        component: views.new({collection})
-
+      story.save {body: "hello!"},
+        success: (model) ->
+          DocumentHelper.navigate("/stories/#{model.id}/edit", true)
 
     edit: (id) ->
       story = new Story({id})
