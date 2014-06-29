@@ -1,9 +1,10 @@
 AmpersandModel = require("ampersand-model/ampersand-model")
-sync = require('ampersand-sync')
+sync           = require("ampersand-sync")
+_              = require("underscore")
 
 module.exports = AmpersandModel.extend
   sync: (method, model, options) ->
-    if method is "update" or method is "create"
+    if _.contains(["update", "create", "delete"], method)
       token = document.querySelector("meta[name='csrf-token']").content
 
       options.beforeSend = (xhr) ->

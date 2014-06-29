@@ -1,5 +1,6 @@
 #= require modernizr/modernizr
 #= require jquery/dist/jquery
+#= require bootstrap
 
 DocumentHelper    = require("document-helper")
 

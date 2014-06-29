@@ -67,10 +67,13 @@ StoryList = React.createClass
     DocumentHelper.navigate href, true
 
   delete: (id) ->
-    model = @getCollection().get(id)
+    model = @props.collection.get(id)
 
     model.destroy
-      success: =>
+      success: (model) =>
+        @props.collection.remove(model)
         @forceUpdate()
+
+        DocumentHelper.title = "(#{@props.collection.length}) Stories"
 
 module.exports = StoryList
