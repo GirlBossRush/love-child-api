@@ -32,7 +32,7 @@ module LoveChild
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.assets.prefix = ""
+    config.assets.prefix = "assets"
 
     config.browserify_rails.paths = [lambda { |p| p.start_with?(Rails.root.join("app").to_s) }]
 
