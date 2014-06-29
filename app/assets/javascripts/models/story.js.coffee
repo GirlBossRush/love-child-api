@@ -1,4 +1,4 @@
-AmpersandModel = require("ampersand-model/ampersand-model")
+AmpersandModel = require("lib/ampersand-rails-model")
 
 Story = AmpersandModel.extend
   props:
@@ -8,7 +8,6 @@ Story = AmpersandModel.extend
     body: "string"
     created_at: "string"
     updated_at: "string"
-
 
   urlRoot: "/api/stories"
 
