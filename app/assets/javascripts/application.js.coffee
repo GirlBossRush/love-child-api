@@ -1,6 +1,8 @@
 #= require modernizr/modernizr
 #= require jquery/dist/jquery
 #= require bootstrap
+#= require rangy/rangy-core
+#= require rangy/rangy-textrange
 
 DocumentHelper    = require("document-helper")
 

@@ -2,8 +2,7 @@ React                  = require("react")
 R                      = require("react-dom")
 HumanTime              = require("components/shared/human-time")
 keyMap                 = require("lib/key-map")
-# rangy = require("rangy/rangy-core")
-# require("rangy/rangy-textrange")
+
 MediumEditor = require("medium-editor/dist/js/medium-editor")
 
 
@@ -25,7 +24,6 @@ StoryEditor = React.createClass
         className: "body"
         ref: "body"
         onInput: @handleBodyUpdate
-        onKeyUp: @storeCaretPosition
         dangerouslySetInnerHTML:
           __html: @state.story.body
 
@@ -33,6 +31,8 @@ StoryEditor = React.createClass
 
   storeCaretPosition: ->
     body = @refs.body.getDOMNode()
+
+    @state.caretPostion = rangy.getSelection().saveCharacterRanges(body)
 
   saveStateRender: ->
     attributes = if @state.saveStatus == "saved"
@@ -53,7 +53,7 @@ StoryEditor = React.createClass
 
     @state.saveStatus = "saving"
     @forceUpdate()
-    console.debug "saving"
+    console.log "saving"
 
     if !@state.isSaving
       model.save @state.story,
@@ -79,16 +79,9 @@ StoryEditor = React.createClass
     @storeCaretPosition()
 
   componentDidUpdate: ->
-    # body  = @refs.body.getDOMNode()
-    # range = document.createRange();
-    # sel   = window.getSelection();
+    body = @refs.body.getDOMNode()
 
-    # range.setStart(body.childNodes[0], @state.bodyCaretPosition)
-    # range.setStart(body.childNodes[0], 0)
-
-    # range.collapse(true)
-    # sel.removeAllRanges()
-    # sel.addRange(range)
+    rangy.getSelection().restoreCharacterRanges(body, @state.caretPostion)
 
   componentDidMount: ->
     body = @refs.body.getDOMNode()
