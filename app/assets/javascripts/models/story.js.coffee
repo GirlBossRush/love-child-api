@@ -1,5 +1,18 @@
-define ["backbone"], (Backbone) ->
-  class Story extends Backbone.Model
-    paramRoot: "story"
+AmpersandModel = require("ampersand-model/ampersand-model")
 
-    urlRoot: "/api/stories"
+Story = AmpersandModel.extend
+  props:
+    id: "integer"
+    title: "string"
+    description: "string"
+    body: "string"
+    created_at: "string"
+    updated_at: "string"
+
+
+  urlRoot: "/api/stories"
+
+  defaults:
+    title: "Title"
+
+module.exports = Story

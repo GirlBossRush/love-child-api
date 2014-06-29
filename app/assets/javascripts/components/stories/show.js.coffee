@@ -1,23 +1,22 @@
-define (require) ->
-  BackboneReactComponent = require("backbone-react-component")
-  R                      = require("react-dom")
-  HumanTime              = require("components/shared/human-time")
+React                  = require("react")
+R                      = require("react-dom")
+HumanTime              = require("components/shared/human-time")
 
-  StoryView = BackboneReactComponent.extend
-    displayName: "story"
+module.exports = React.createClass
+  displayName: "story"
 
-    render: ->
-      R.section {className: "story"},
-        R.header {className: "headline"},
-          R.div {className: "title"}, @props.title
-          R.div {className: "description"}, @props.description
-          R.div {className: "author"}, @props.author
-          HumanTime {datetime: @props.updated_at}
-          R.hr {className: "section-seperator"}
+  render: ->
+    R.section {className: "story"},
+      R.header {className: "headline"},
+        R.div {className: "title"}, @props.story.title
+        R.div {className: "description"}, @props.story.description
+        R.div {className: "author"}, @props.story.author
+        HumanTime {datetime: @props.story.updated_at}
+        R.hr {className: "section-seperator"}
 
-        R.article
-          className: "body"
-          dangerouslySetInnerHTML:
-            __html: @props.body
+      R.article
+        className: "body"
+        dangerouslySetInnerHTML:
+          __html: @props.story.body
 
-        R.footer {className: "summary"}
+      R.footer {className: "summary"}

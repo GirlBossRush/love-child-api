@@ -20,9 +20,8 @@
     "moment": "~2.6.0",
     "underscore": "~1.6.0",
     "react": "~0.10.0",
-    "backbone": "jashkenas/backbone#~1.1.2",
-    "backbone-react-component": "magalhas/backbone-react-component#~0.6.2",
-    "modernizr": "~2.8.1",
-    "medium-editor": "daviferreira/medium-editor#~1.8.8"
+    "modernizr": "~2.8.2",
+    "medium-editor": "daviferreira/medium-editor#~1.8.8",
+    "jquery": "~2.1.1"
   }
 }

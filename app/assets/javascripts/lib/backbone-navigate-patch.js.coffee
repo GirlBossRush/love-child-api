@@ -1,9 +1,8 @@
-define (require) ->
-  BackboneVendor = require("backbone-vendor")
+BackboneVendor = require("backbone-foo/backbone")
 
-  vendorNavigate = BackboneVendor.history.navigate
+vendorNavigate = BackboneVendor.history.navigate
 
-  return (fragment, options) ->
-    window.scrollTo(0, 0)
+module.exports = (fragment, options) ->
+  window.scrollTo(0, 0)
 
-    vendorNavigate.apply(this, arguments)
+  vendorNavigate.apply(this, arguments)

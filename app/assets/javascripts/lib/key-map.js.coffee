@@ -1,4 +1,4 @@
-define (require) ->
+module.exports =
   "backspace": "8"
   "tab": "9"
   "enter": "13"

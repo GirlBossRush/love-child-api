@@ -1,3 +1,3 @@
-# Sugar.
-define ["react"], (React) ->
-  React.DOM
+# Sugar for React.DOM
+
+module.exports = require("react").DOM

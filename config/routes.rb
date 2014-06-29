@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'application#foundation'
-  get '*path', to: 'application#foundation'
+  constraints subdomain: '' do
+    get '*path', to: 'application#foundation'
+  end
 end

@@ -6,49 +6,50 @@
 # * Body: React DOM
 # * Actions: React DOM (Most likely an array).
 
-define (require) ->
-  React          = require("react")
-  R              = require("react-dom")
-  DocumentHelper = require("document-helper")
-  _              = require("underscore")
+React          = require("react")
+R              = require("react-dom")
+DocumentHelper = require("document-helper")
+_              = require("underscore")
 
-  Modal = React.createClass
-    displayName: "modal"
+Modal = React.createClass
+  displayName: "modal"
 
-    render: ->
-      R.div {
-        className: "modal fade",
-        key: @state.id,
-        id: @state.id,
-        tabIndex: "-1",
-        role: "dialog",
-        "aria-labelledby": @props.type,
-        "aria-hidden": "true"
-      },
+  render: ->
+    R.div {
+      className: "modal fade",
+      key: @state.id,
+      id: @state.id,
+      tabIndex: "-1",
+      role: "dialog",
+      "aria-labelledby": @props.type,
+      "aria-hidden": "true"
+    },
 
-        R.div {className: "modal-dialog modal-sm"},
-          R.div {className: "modal-inner"},
-            R.div {className: "modal-content"},
-              R.header {className: "modal-header"},
-                R.h5 {className: "modal-title #{@state.type}", id: @props.type}, @state.title
+      R.div {className: "modal-dialog modal-sm"},
+        R.div {className: "modal-inner"},
+          R.div {className: "modal-content"},
+            R.header {className: "modal-header"},
+              R.h5 {className: "modal-title #{@state.type}", id: @props.type}, @state.title
 
-              R.article {className: "modal-body"}, @props.body
+            R.article {className: "modal-body"}, @props.body
 
-              R.footer {className: "modal-footer"},
-                R.div {className: "actions"}, @props.actions
+            R.footer {className: "modal-footer"},
+              R.div {className: "actions"}, @props.actions
 
-    getInitialState: ->
-      id: _.uniqueId("modal")
-      type: @props.type || "info"
-      title: @props.title || "Information"
+  getInitialState: ->
+    id: _.uniqueId("modal")
+    type: @props.type || "info"
+    title: @props.title || "Information"
 
-    # REFACTOR: This is a bit odd since Bootstrap's interface is jQuery heavy.
-    componentDidMount: ->
-      $(@getDOMNode()).modal("show")
+  # REFACTOR: This is a bit odd since Bootstrap's interface is jQuery heavy.
+  componentDidMount: ->
+    $(@getDOMNode()).modal("show")
 
-    componentDidUpdate: ->
-      $(@getDOMNode()).modal("show")
+  componentDidUpdate: ->
+    $(@getDOMNode()).modal("show")
 
-    componentWillUnmount: ->
-      $(@getDOMNode()).modal("hide")
+  componentWillUnmount: ->
+    $(@getDOMNode()).modal("hide")
 
+
+module.exports = Modal

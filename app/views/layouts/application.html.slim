@@ -25,6 +25,7 @@ html.no-js lang="en"
 
     aside#aside-content
     main#main-content.container
+    footer#routes
       = yield
 
-    = requirejs_include_tag "application"
+    = javascript_include_tag :application

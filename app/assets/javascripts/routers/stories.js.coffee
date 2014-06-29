@@ -1,59 +1,57 @@
-define (require) ->
-  Backbone       = require("backbone")
-  react          = require("react")
-  DocumentHelper = require("document-helper")
+AmpersandRouter = require("ampersand-router/ampersand-router")
 
-  Story          = require("models/story")
-  Stories        = require("collections/stories")
+react          = require("react")
+DocumentHelper = require("document-helper")
 
-  views =
-    index: require("components/stories/index")
-    show:  require("components/stories/show")
-    edit:  require("components/stories/edit")
+Story          = require("models/story")
+Stories        = require("collections/stories")
 
-  class StoriesRouter extends Backbone.Router
-    routes:
-      'stories(/)': 'index'
-      'stories/new': 'new'
-      'stories/:id': 'show'
-      'stories/:id/edit': 'edit'
+views =
+  index: require("components/stories/index")
+  show:  require("components/stories/show")
+  edit:  require("components/stories/edit")
 
-    index: ->
-      stories = new Stories()
+StoriesRouter = AmpersandRouter.extend
+  routes:
+    'stories(/)': 'index'
+    'stories/new': 'new'
+    'stories/:id': 'show'
+    'stories/:id/edit': 'edit'
 
-      stories.fetch
-        success: (collection) ->
-          DocumentHelper.title = "(#{collection.length}) Stories"
+  index: ->
+    stories = new Stories()
 
-          DocumentHelper.render
-            component: views.index({collection})
+    stories.fetch
+      success: (collection) ->
+        DocumentHelper.title = "(#{collection.length}) Stories"
 
+        DocumentHelper.render
+          component: views.index({collection})
 
-    show: (id) ->
-      story = new Story({id})
+  show: (id) ->
+    story = new Story({id})
 
-      story.fetch
-        success: (model) ->
-          DocumentHelper.title = [model.attributes.title, "Stories"]
+    story.fetch
+      success: (model) ->
+        DocumentHelper.title = [model.attributes.title, "Stories"]
 
-          DocumentHelper.render
-            component: views.show({model})
+        DocumentHelper.render
+          component: views.show(story: model)
 
+  new: ->
+    story = new Story()
+    story.save {body: "hello!"},
+      success: (model) ->
+        DocumentHelper.navigate("/stories/#{model.id}/edit", true)
 
-    new: ->
-      story = new Story()
+  edit: (id) ->
+    story = new Story({id})
 
-      story.save {body: "hello!"},
-        success: (model) ->
-          DocumentHelper.navigate("/stories/#{model.id}/edit", true)
+    story.fetch
+      success: (model) ->
+        DocumentHelper.title = ["Edit", model.attributes.title, "Stories"]
 
-    edit: (id) ->
-      story = new Story({id})
+        DocumentHelper.render
+          component: views.edit({model})
 
-      story.fetch
-        success: (model) ->
-          DocumentHelper.title = ["Edit", model.attributes.title, "Stories"]
-
-          DocumentHelper.render
-            component: views.edit({model})
-
+module.exports = StoriesRouter

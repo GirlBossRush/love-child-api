@@ -1,23 +1,20 @@
-dependencies = [
-  "modernizr"
-  "jquery"
-  "bootstrap"
-  "backbone"
-  "routers/application"
-  "routers/stories"
-  "document-helper"
-  "components/shared/modal"
-  "components/shared/side-menu"
-]
+#= require modernizr/modernizr
+#= require jquery/dist/jquery
 
-require dependencies, (Modernizr, $, bootstrap, Backbone, ApplicationRouter, StoriesRouter, DocumentHelper, Modal, SideMenu) ->
+DocumentHelper    = require("document-helper")
+
+ApplicationRouter = require("routers/application")
+StoriesRouter     = require("routers/stories")
+History           = require("ampersand-router/ampersand-history")
+
+SideMenu          = require("components/shared/side-menu")
+
+$ ->
   new ApplicationRouter()
   new StoriesRouter()
 
-  $ ->
-    Backbone.history.start
-      pushState: true
+  History.start(pushState: true)
 
-    DocumentHelper.render
-      component: SideMenu()
-      anchor: "asideContent"
+  DocumentHelper.render
+    component: SideMenu()
+    anchor: "asideContent"

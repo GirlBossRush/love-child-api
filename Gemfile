@@ -23,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
-gem 'requirejs-rails'
+gem "browserify-rails", git: "git@github.com:browserify-rails/browserify-rails.git"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

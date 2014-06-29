@@ -1,20 +1,24 @@
-define (require) ->
-  Backbone       = require("backbone")
-  DocumentHelper = require("document-helper")
-  ErrorPage      = require("components/errors/error-page")
+AmpersandRouter = require("ampersand-router/ampersand-router")
+DocumentHelper  = require("document-helper")
+ErrorPage       = require("components/errors/error-page")
 
-  class ApplicationRouter extends Backbone.Router
-    routes:
-      '': 'foundation'
-      '*undefined': 'notFound'
+ApplicationRouter = AmpersandRouter.extend
+  routes:
+    '': 'foundation'
+    '*undefined': 'notFound'
 
-    foundation: ->
-      DocumentHelper.title = null
+  foundation: ->
+    DocumentHelper.title = null
 
-      console.debug "foundation!"
+    console.log "foundation"
 
-    notFound: (path) ->
-      DocumentHelper.title = "404 - Error"
+    DocumentHelper.render
+      component: ErrorPage(code: 204, path: '/')
 
-      DocumentHelper.render
-        component: ErrorPage({code: 404, path})
+  notFound: (path) ->
+    DocumentHelper.title = "404 - Error"
+
+    DocumentHelper.render
+      component: ErrorPage({code: 404, path})
+
+module.exports = ApplicationRouter

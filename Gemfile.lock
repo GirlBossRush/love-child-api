@@ -1,4 +1,11 @@
 GIT
+  remote: git@github.com:browserify-rails/browserify-rails.git
+  revision: 84ad3fd73c7336deba01cad6e2b316d3bc2abc3b
+  specs:
+    browserify-rails (0.4.1)
+      sprockets (~> 2.0)
+
+GIT
   remote: git@github.com:rails/sass-rails.git
   revision: 3a9e47db7d769221157c82229fc1bade55b580f0
   specs:
@@ -104,8 +111,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    requirejs-rails (0.9.3)
-      railties (>= 3.1.1)
     sanitize (3.0.0)
       crass (~> 0.2.0)
       nokogiri (>= 1.4.4)
@@ -162,11 +167,11 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.1.1)
   bourbon (= 4.0.2)
+  browserify-rails!
   coffee-rails (~> 4.0.0)
   pg
   pry-rails
   rails (= 4.1.0)
-  requirejs-rails
   sanitize (~> 3.0.0)
   sass-rails!
   simple_form
