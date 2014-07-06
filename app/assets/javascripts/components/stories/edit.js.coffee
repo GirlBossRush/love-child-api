@@ -2,9 +2,11 @@ React                  = require("react")
 R                      = require("react-dom")
 HumanTime              = require("components/shared/human-time")
 keyMap                 = require("lib/key-map")
+_                      = require("underscore")
 
 MediumEditor = require("medium-editor/dist/js/medium-editor")
 
+UPDATE_THROTTLE = 1500
 
 StoryEditor = React.createClass
   displayName: "storyEdit"
@@ -14,8 +16,20 @@ StoryEditor = React.createClass
       @saveStateRender()
 
       R.header {className: "headline"},
-        R.div {className: "title"}, @state.story.title
-        R.div {className: "description"}, @state.story.description
+        R.div {
+          className: "title"
+          onInput: @handleContentUpdate
+          contentEditable: true
+          ref: "title"
+        }, @state.story.title
+
+        R.div {
+          className: "description",
+          onInput: @handleContentUpdate,
+          contentEditable: true
+          ref: "description"
+        }, @state.story.description
+
         R.div {className: "author"}, @state.story.author
         HumanTime {datetime: @state.story.updated_at}
         R.hr {className: "section-seperator"}
@@ -23,73 +37,68 @@ StoryEditor = React.createClass
       R.article
         className: "body"
         ref: "body"
-        onInput: @handleBodyUpdate
-        dangerouslySetInnerHTML:
-          __html: @state.story.body
+        contentEditable: true
+        onInput: @handleContentUpdate
 
       R.footer {className: "summary"}
 
-  storeCaretPosition: ->
-    body = @refs.body.getDOMNode()
-
-    @state.caretPostion = rangy.getSelection().saveCharacterRanges(body)
-
   saveStateRender: ->
-    attributes = if @state.saveStatus == "saved"
-      text: "Saved"
-      className: "saved"
-    else if @state.saveStatus == "saving"
-      text: "Saving"
-      className: "saving"
-    else
+    attributes = if !@state.isSaving and !@state.isSaved
       text: "Unsaved"
       className: "unsaved"
+    else if @state.isSaving
+      text: "Saving"
+      className: "saving"
+    else if @state.isSaved
+      text: "Saved"
+      className: "saved"
+    else
+      text: "?"
+      className: "unknown"
 
     R.aside {className: "save-state #{attributes.className}"}, attributes.text
 
-  saveStory: ->
+  saveStory: _.debounce ->
     model = @state.model
     model.set(@state.story)
 
-    @state.saveStatus = "saving"
+    @state.isSaving = true
     @forceUpdate()
-    console.log "saving"
 
+    model.save @state.story,
+      success: =>
+        @state.isSaving = false
+        @state.isSaved  = true
+
+      error: =>
+        @state.isSaving = false
+        @state.isSaved  = false
+
+      complete: =>
+        @forceUpdate()
+  , UPDATE_THROTTLE
+
+  handleContentUpdate: (e) ->
     if !@state.isSaving
-      model.save @state.story,
-        success: =>
-          @state.saveStatus = "saved"
+      @state.isSaved = false
+      @forceUpdate()
 
-        error: =>
-          @state.saveStatus = "unsaved"
+      contentFields = ["title", "description", "body"]
 
-        complete: =>
-          @forceUpdate()
+      for field in contentFields
+        @state.story[field] = @refs[field].getDOMNode().innerHTML
 
-  handleBodyUpdate: ->
-    @state.saveStatus = "unsaved"
-    @forceUpdate()
-
-    body = @refs.body.getDOMNode()
-
-    @state.story.body = body.innerHTML
-    @saveStory()
-
-  componentWillUpdate: ->
-    @storeCaretPosition()
-
-  componentDidUpdate: ->
-    body = @refs.body.getDOMNode()
-
-    rangy.getSelection().restoreCharacterRanges(body, @state.caretPostion)
+      @saveStory()
 
   componentDidMount: ->
     body = @refs.body.getDOMNode()
+
+    body.innerHTML = @state.story.body
     new MediumEditor(body)
 
   getInitialState: ->
-    saveStatus: "saved"
     isSaving: false
+    isSaved: true
 
     bodyCaretPosition: 0
 
