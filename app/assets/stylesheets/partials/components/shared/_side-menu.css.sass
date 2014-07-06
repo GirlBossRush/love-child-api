@@ -1,28 +1,30 @@
-$side-menu-width: 280px
+$expanded-width: 150px
+$collapsed-width: 45px
+$width-delta: $expanded-width - $collapsed-width
 
 #aside-content
   display: block
 
   position: fixed
-  top: 0
-  left: -$side-menu-width
+  top: 25%
+  left: -$width-delta
   z-index: $priority-high
 
-  width: $side-menu-width
+  width: $expanded-width
   height: 100%
-
-  background: $black
 
   color: $white
 
-  transition: -moz-transform $speed-fast ease-out
-  transition: -webkit-transform $speed-fast ease-out
-  transition: -ms-transform $speed-fast ease-out
-  transition: transform $speed-fast ease-out
-
   .menu-content
     .list-group
+      text-align: right
+
       .list-group-item
+        transition: -moz-transform $speed-fast ease-out
+        transition: -webkit-transform $speed-fast ease-out
+        transition: -ms-transform $speed-fast ease-out
+        transition: transform $speed-fast ease-out
+
         background: $black
 
         cursor: pointer
@@ -32,64 +34,21 @@ $side-menu-width: 280px
         border-right: none
 
         &:first-child
-          border-radius: 0
+          border-radius: 2px
           border-top: none
 
         &:last-child
           border-radius: 0
-          border-bottom: none
+          border-bottom: 2px
 
         &:hover
           color: $white
+          +transform(translate($width-delta, 0))
 
       .accent
-        margin-right: 10px
-
-    .menu-expander
-      position: absolute
-      top: 0
-      left: 100%
-
-      font-size: 1.6em
-      color: $black
-
-      margin-top: 10px
-      margin-left: 10px
-
-      &:hover
-        cursor: pointer
-        color: red
-
-    .click-mask
-      display: none
-
-      cursor: alias
-
-      width: 400%
-      height: 100%
-
-      position: fixed
-      left: 100%
-      top: 0
-
-body.side-menu-expanded
-  overflow: hidden
-
-  #aside-content
-    +transform(translateX($side-menu-width))
-
-    .menu-content
-      .menu-expander
-        display: none
-
-      .click-mask
-        display: block
+        margin-left: 15px
 
 
-html.csstransforms3d
-  #aside-content
-    +transform(translate3d(0, 0, 0))
-
-  body.side-menu-expanded
-    #aside-content
-      +transform(translate3d($side-menu-width, 0, 0))
+html.csstransforms3d #aside-content
+  .menu-content .list-group-item:hover
+    +transform(translate3d($width-delta, 0, 0))

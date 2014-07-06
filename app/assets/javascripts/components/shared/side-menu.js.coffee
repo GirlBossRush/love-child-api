@@ -1,40 +1,6 @@
-navigationItems = [
-  {
-    label: "Home"
-    icon: "home"
-    path: "/"
-  }
-
-  {
-    label: "Stories"
-    icon: "list-alt"
-    path: "/stories"
-  }
-
-  {
-    label: "Search"
-    icon: "search"
-    path: "/stories/search"
-  }
-
-  {
-    label: "Create"
-    icon: "file"
-    path: "/stories/new"
-  }
-
-  {
-    label: "Settings"
-    icon: "user"
-    path: "/settings"
-  }
-
-  {
-    label: "Library"
-    icon: "book"
-    path: "/library"
-  }
-]
+# Side menu component.
+# Arguments:
+# * navigationItems: Array of objects {label, icon, path}.
 
 React          = require("react/react-with-addons")
 R              = require("react-dom")
@@ -43,35 +9,17 @@ DocumentHelper = require("document-helper")
 module.exports = React.createClass
   displayName: "sideMenu"
 
-  getInitialState: ->
-    expanded: false
-
-  toggleExpansion: ->
-    @state.expanded = !@state.expanded
-
-    $("body").toggleClass("side-menu-expanded", @state.expanded)
-
-    @forceUpdate()
-
   navigate: (path) ->
     DocumentHelper.navigate(path, true)
 
     @toggleExpansion()
 
   navigationItem: (item) ->
-    R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(@, item.path)},
-      R.span {className: "accent glyphicon glyphicon-#{item.icon}"}, ""
+    R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(this, item.path)},
       item.label
+      R.span {className: "accent glyphicon glyphicon-#{item.icon}"}, ""
 
   render: ->
-    classes = React.addons.classSet
-      "menu-content": true
-      "expanded": @state.expanded
-
-    R.div {className: classes},
+    R.div {className: "menu-content"},
       R.ul {className: "list-group"},
-        navigationItems.map(@navigationItem)
-
-      R.div {className: "menu-expander", onClick: @toggleExpansion},
-        R.i {className: "glyphicon glyphicon-list"}
-      R.div {className: "click-mask", onClick: @toggleExpansion}
+        @props.navigationItems.map(@navigationItem)

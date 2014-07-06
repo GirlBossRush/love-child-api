@@ -11,6 +11,7 @@ StoriesRouter     = require("routers/stories")
 History           = require("ampersand-router/ampersand-history")
 
 SideMenu          = require("components/shared/side-menu")
+navigationItems   = require("components/shared/side-menu/navigation-items")
 
 $ ->
   new ApplicationRouter()
@@ -19,5 +20,5 @@ $ ->
   History.start(pushState: true)
 
   DocumentHelper.render
-    component: SideMenu()
+    component: SideMenu({navigationItems})
     anchor: "asideContent"
