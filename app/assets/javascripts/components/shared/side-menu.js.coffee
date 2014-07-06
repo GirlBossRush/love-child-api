@@ -12,8 +12,6 @@ module.exports = React.createClass
   navigate: (path) ->
     DocumentHelper.navigate(path, true)
 
-    @toggleExpansion()
-
   navigationItem: (item) ->
     R.li {className: "list-group-item", key: item.path, onClick: @navigate.bind(this, item.path)},
       item.label
