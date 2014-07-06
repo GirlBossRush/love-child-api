@@ -7,6 +7,8 @@ _                      = require("underscore")
 MediumEditor = require("medium-editor/dist/js/medium-editor")
 
 UPDATE_THROTTLE = 1500
+contentEditableFields = ["title", "description", "body"]
+
 
 StoryEditor = React.createClass
   displayName: "storyEdit"
@@ -16,19 +18,17 @@ StoryEditor = React.createClass
       @saveStateRender()
 
       R.header {className: "headline"},
-        R.div {
+        R.div
           className: "title"
           onInput: @handleContentUpdate
           contentEditable: true
           ref: "title"
-        }, @state.story.title
 
-        R.div {
+        R.div
           className: "description",
           onInput: @handleContentUpdate,
           contentEditable: true
           ref: "description"
-        }, @state.story.description
 
         R.div {className: "author"}, @state.story.author
         HumanTime {datetime: @state.story.updated_at}
@@ -83,16 +83,18 @@ StoryEditor = React.createClass
       @state.isSaved = false
       @forceUpdate()
 
-      contentFields = ["title", "description", "body"]
-
-      for field in contentFields
+      for field in contentEditableFields
         @state.story[field] = @refs[field].getDOMNode().innerHTML
 
       @saveStory()
 
+  # Contenteditable fields must be assigned outside of React's update cycle.
+  # Otherwise the cursor position will be lost on each update.
   componentDidMount: ->
-    body = @refs.body.getDOMNode()
+    for field in contentEditableFields
+      @refs[field].getDOMNode().innerHTML = @state.story[field]
 
+    body = @refs.body.getDOMNode()
     body.innerHTML = @state.story.body
     new MediumEditor(body)
 
