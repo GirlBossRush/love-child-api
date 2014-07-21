@@ -10,21 +10,6 @@ gem 'pg'
 
 gem 'sanitize', '~> 3.0.0'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', git: 'git@github.com:rails/sass-rails.git'
-gem 'bourbon', '4.0.2'
-gem 'bootstrap-sass', '~> 3.1.1'
-
-gem 'slim-rails'
-gem 'simple_form'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-gem "browserify-rails", git: "git@github.com:browserify-rails/browserify-rails.git"
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
