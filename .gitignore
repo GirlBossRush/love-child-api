@@ -18,8 +18,3 @@
 /log/*.log
 /tmp
 
-# Bower components
-/vendor/assets/bower_components/**/*
-
-# NPM
-node_modules/**/*
