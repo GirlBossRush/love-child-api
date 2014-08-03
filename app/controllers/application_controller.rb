@@ -1,17 +1,26 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  rescue_from ActionController::InvalidAuthenticityToken, with: :invalid_authenticity_token
 
-  after_filter :set_access_control_headers
+  skip_before_filter :verify_authenticity_token
 
-  def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = 'http://love-child.com:3000'
-    headers['Access-Control-Request-Method'] = '*'
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
+
+  def cors_set_access_control_headers
+    headers["Access-Control-Allow-Origin"] = "*"
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS"
+    headers["Access-Control-Allow-Headers"] = "Origin, Content-Type, Accept, Authorization, Token"
+    headers["Access-Control-Max-Age"] = "1728000"
   end
 
-  private
+  def cors_preflight_check
+    if request.method == "OPTIONS"
+      headers["Access-Control-Allow-Origin"] = "*"
+      headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS"
+      headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With, X-Prototype-Version, Token"
+      headers["Access-Control-Max-Age"] = "1728000"
 
-  def invalid_authenticity_token
-    render json: "Missing or invalid authenticity token", status: 422
+      render nothing: true, status: 200
+    end
   end
+
 end
