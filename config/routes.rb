@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     get "/health-check", to: "application#health_check"
   end
 
+  match "*path", to: "application#throw_404", via: :all
 end

@@ -33,4 +33,24 @@ class ApplicationController < ActionController::Base
   end
   # ---
 
+  # --- Error handling ---
+  def throw_404
+    # Unknown routes are directed here to be raised as exceptions.
+    raise ActiveRecord::RecordNotFound, "Route '#{params[:path]}' not found"
+  end
+
+  rescue_from "ActiveRecord::RecordNotFound" do |e|
+    render_status(404, e.message)
+  end
+  # ---
+
+  private
+    def render_status(status, message = "")
+      render json: {
+        message: message,
+      },
+      status: status
+    end
+  #end_private
+
 end
