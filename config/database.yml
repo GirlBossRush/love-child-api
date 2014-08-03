@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: love-child_production
-  username: love-child
-  password: <%= ENV['LOVE-CHILD_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
