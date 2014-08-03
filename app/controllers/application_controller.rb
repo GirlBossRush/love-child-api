@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
+  def health_check
+    render json: { message: "healthy" }
+  end
+
   # --- CORS ---
   def cors_set_access_control_headers
     headers.reverse_merge!(
