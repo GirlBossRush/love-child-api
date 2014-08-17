@@ -19,6 +19,6 @@ class Story < ActiveRecord::Base
 
   def author
     # Placeholder
-    "John Smith"
+    "Anonymous"
   end
 end
