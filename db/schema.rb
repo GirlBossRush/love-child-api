@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20140822095622) do
 
   create_table "stories", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
