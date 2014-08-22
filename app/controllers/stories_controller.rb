@@ -5,7 +5,7 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    @stories = Story.order("created_at DESC")
 
     respond_with @stories, each_serializer: StoriesSerializer
   end
