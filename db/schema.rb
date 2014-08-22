@@ -15,19 +15,23 @@ ActiveRecord::Schema.define(version: 20140822104906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "stories", force: true do |t|
+  create_table "stories", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.uuid     "user_id"
   end
 
-  create_table "users", force: true do |t|
+  add_index "stories", ["body"], name: "index_stories_on_body", using: :btree
+  add_index "stories", ["description"], name: "index_stories_on_description", using: :btree
+  add_index "stories", ["title"], name: "index_stories_on_title", using: :btree
+
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"
-    t.string   "uuid"
     t.text     "description"
     t.string   "password_digest"
     t.string   "role"
@@ -41,6 +45,5 @@ ActiveRecord::Schema.define(version: 20140822104906) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["name"], name: "index_users_on_name", using: :btree
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
-  add_index "users", ["uuid"], name: "index_users_on_uuid", using: :btree
 
 end
