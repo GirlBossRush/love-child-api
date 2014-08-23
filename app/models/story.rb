@@ -1,7 +1,11 @@
 class Story < ActiveRecord::Base
   # Validations
   validates :description, length: { maximum: 2000 }
-  # --
+  # ----
+
+  # Relations
+  belongs_to :user
+  # ----
 
   def title=(title)
     write_attribute :title, Sanitize.fragment(title)
@@ -13,10 +17,5 @@ class Story < ActiveRecord::Base
 
   def body=(body)
     write_attribute :body, Sanitize.fragment(body, Sanitize::Config::BASIC)
-  end
-
-  def author
-    # Placeholder
-    "Anonymous"
   end
 end

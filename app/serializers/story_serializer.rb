@@ -1,5 +1,13 @@
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :updated_at, :author, :body
+  attributes :id, :title, :description, :created_at, :updated_at, :user, :body
+
+  def user
+    if object.user
+      object.user.slice(:id, :name, :email)
+    else
+      nil
+    end
+  end
 
   def created_at
     object.created_at.iso8601
