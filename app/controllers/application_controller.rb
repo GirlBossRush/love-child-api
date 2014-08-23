@@ -46,6 +46,8 @@ class ApplicationController < ActionController::Base
 
   private
     def render_status(status, message = "")
+      cors_set_access_control_headers
+
       render json: {
         message: message,
       },
