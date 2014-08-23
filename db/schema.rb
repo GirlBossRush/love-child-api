@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140822104906) do
   end
 
   add_index "stories", ["body"], name: "index_stories_on_body", using: :btree
+  add_index "stories", ["created_at"], name: "index_stories_on_created_at", using: :btree
   add_index "stories", ["description"], name: "index_stories_on_description", using: :btree
   add_index "stories", ["title"], name: "index_stories_on_title", using: :btree
 
@@ -42,8 +43,9 @@ ActiveRecord::Schema.define(version: 20140822104906) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["name"], name: "index_users_on_name", using: :btree
+  add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
 
 end
