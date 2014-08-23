@@ -5,9 +5,13 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.order("created_at DESC")
+    stories = if params[:user_id]
+      Story.where(user_id: params[:user_id]).order("created_at DESC")
+    else
+      Story.order("created_at DESC")
+    end
 
-    respond_with @stories, each_serializer: StoriesSerializer
+    respond_with stories, each_serializer: StoriesSerializer
   end
 
   # GET /stories/1
