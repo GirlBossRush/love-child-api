@@ -42,6 +42,11 @@ class ApplicationController < ActionController::Base
   rescue_from "ActiveRecord::RecordNotFound" do |e|
     render_status(404, e.message)
   end
+
+  rescue_from "ActiveRecord::StatementInvalid" do |e|
+    render_status(404, e.message)
+  end
+
   # ---
 
   private
