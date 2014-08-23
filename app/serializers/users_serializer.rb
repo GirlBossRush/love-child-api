@@ -1,8 +1,8 @@
 class UsersSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :description, :created_at, :updated_at, :url
+  attributes :id, :name, :email, :description, :last_login, :last_activity, :created_at, :updated_at, :path
 
-  def url
-    user_url(object)
+  def path
+    user_path(object)
   end
 
   def created_at

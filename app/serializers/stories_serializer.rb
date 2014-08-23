@@ -1,16 +1,10 @@
 class StoriesSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :user, :updated_at, :url
+  attributes :id, :title, :description, :created_at, :user, :updated_at, :path
 
-  def user
-    if object.user
-      object.user.slice(:id, :name, :email)
-    else
-      nil
-    end
-  end
+  has_one :user
 
-  def url
-    story_url(object)
+  def path
+    story_path(object)
   end
 
   def created_at
@@ -20,4 +14,5 @@ class StoriesSerializer < ActiveModel::Serializer
   def updated_at
     object.updated_at.iso8601
   end
+
 end
