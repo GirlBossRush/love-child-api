@@ -21,10 +21,6 @@ class StoriesController < ApplicationController
     @story = Story.new
   end
 
-  # GET /stories/1/edit
-  def edit
-  end
-
   # POST /stories
   # POST /stories.json
   def create
