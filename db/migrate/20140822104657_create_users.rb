@@ -1,11 +1,11 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users, id: :uuid do |t|
-      t.string :name
+      t.string :name, unqiue: true
       t.text :description
       t.string :password_digest
       t.string :role
-      t.string :email
+      t.string :email, unqiue: true
       t.datetime :last_login
       t.datetime :last_activity
 
