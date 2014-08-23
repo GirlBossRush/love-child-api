@@ -11,5 +11,6 @@ class CreateStories < ActiveRecord::Migration
     add_index :stories, :title
     add_index :stories, :description
     add_index :stories, :body
+    add_index :stories, :created_at
   end
 end
