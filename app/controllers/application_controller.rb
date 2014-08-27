@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def self.force_ssl(options = {})
     host = options.delete(:host)
     before_filter(options) do
-      if !Rails.env.development? && !request.ssl? && !(respond_to?(:allow_http?) && allow_http?)
+      if !Rails.env.development? && !request.ssl? && !(respond_to?(:allow_http?, true) && allow_http?)
         redirect_options = {:protocol => 'https://', :status => :moved_permanently}
         redirect_options.merge!(:host => host) if host
         redirect_options.merge!(:params => request.query_parameters)
