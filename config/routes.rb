@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       match "/stories", controller: "stories", action: "create", via: [:post, :options]
       match "/stories/:id", controller: "stories", action: "update", via: [:post, :options]
 
-      get "/health-check", to: "application#health_check"
+      get "health-check", to: "health_check#index"
     end
   end
 

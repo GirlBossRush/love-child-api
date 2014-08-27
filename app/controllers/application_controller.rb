@@ -5,11 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
-  def health_check
-    render json: { message: "healthy" }
-  end
-
-  # --- CORS ---
+  # ---- CORS ----
   def cors_set_access_control_headers
     headers.reverse_merge!(
       "Access-Control-Allow-Origin" => "*",
@@ -31,9 +27,9 @@ class ApplicationController < ActionController::Base
       render nothing: true, status: 200
     end
   end
-  # ---
+  # ----
 
-  # --- Error handling ---
+  # ---- Error handling ----
   def throw_404
     # Unknown routes are directed here to be raised as exceptions.
     raise ActiveRecord::RecordNotFound, "Route '#{params[:path]}' not found"
@@ -47,7 +43,7 @@ class ApplicationController < ActionController::Base
     render_status(404, e.message)
   end
 
-  # ---
+  # ----
 
   private
     def render_status(status, message = "")
