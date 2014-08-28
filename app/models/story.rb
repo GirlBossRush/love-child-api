@@ -1,5 +1,6 @@
 class Story < ActiveRecord::Base
   # Validations
+  validates :title, length: { maximum: 100 }
   validates :description, length: { maximum: 2000 }
   # ----
 
