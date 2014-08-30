@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope "", defaults: { format: :json, constraints: {id: uuid} } do
     constraints id: uuid do
-      resources :stories
+      resources :stories, except: [:new]
       resources :users
 
       # CORS preflight routes.
