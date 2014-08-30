@@ -20,15 +20,10 @@ class StoriesController < ApplicationController
     respond_with @story
   end
 
-  # GET /stories/new
-  def new
-    @story = Story.new
-  end
-
   # POST /stories
   # POST /stories.json
   def create
-    @story = Story.new(story_params)
+    @story = Story.new()
 
     if @story.save
       render json: @story, status: :created
