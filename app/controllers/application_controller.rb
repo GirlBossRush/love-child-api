@@ -64,6 +64,10 @@ class ApplicationController < ActionController::Base
     render_status(404, e.message)
   end
 
+  rescue_from "ActionController::ParameterMissing" do |e|
+    render_status(400, e.message)
+  end
+
   # ----
 
   private
